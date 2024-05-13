@@ -1,10 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Microsoft.VisualBasic.ApplicationServices;
+using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.ViewModels.DataTransferObjects;
 using Supermarket.Views;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Input;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Supermarket.ViewModels;
 
@@ -22,6 +24,11 @@ public class LoginWindowViewModel : BaseViewModel
     private void Login(object? obj)
     {
         if (Username == "" || Password == "")
+        {
+            return;
+        }
+        
+        if (!UserBLL.IsValidAdmin(Username, Password) && !UserBLL.IsValidCashier(Username, Password))
         {
             return;
         }
