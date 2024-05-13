@@ -8,7 +8,7 @@ namespace Supermarket.Models.EntityLayer;
 public class Product
 {
     [Key]
-    public int ProductId { get; set; }
+    public int? ProductId { get; set; }
     
     [Required]
     public string Name { get; set; }
@@ -23,10 +23,10 @@ public class Product
     public int ProducerId { get; set; }
     
     [StringLength(200)]
-    public string Image { get; set; }
+    public string? Image { get; set; }
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; } 
+    public bool? IsActive { get; set; } 
     
     [ForeignKey("CategoryId")]
     public virtual Category Category { get; set; }
@@ -34,7 +34,7 @@ public class Product
     [ForeignKey("ProducerId")]
     public virtual Producer Producer { get; set; }
     
-    public virtual ICollection<Offer> Offers { get; set; }
+    public virtual Offer? Offer { get; set; }
     public virtual ICollection<Stock> Stocks { get; set; }
     
     [NotMapped]

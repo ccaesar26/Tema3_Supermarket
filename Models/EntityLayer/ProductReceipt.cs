@@ -25,7 +25,7 @@ public class ProductReceipt
     public decimal Subtotal { get; set; }
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
     
     [ForeignKey("ReceiptId")]
     public virtual Receipt Receipt { get; set; }

@@ -10,7 +10,7 @@ namespace Supermarket.Models.EntityLayer;
 public class Stock
 {
     [Key]
-    public int StockId { get; set; }
+    public int? StockId { get; set; }
     
     [Required]
     public int ProductId { get; set; }
@@ -34,7 +34,7 @@ public class Stock
     public decimal SellingPrice => PurchasePrice * decimal.Parse(ConfigurationManager.GetSetting("ProfitPercentage") ?? "1.0");
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
     
     [ForeignKey("ProductId")]
     public virtual Product Product { get; set; }

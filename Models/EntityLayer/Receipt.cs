@@ -9,7 +9,7 @@ namespace Supermarket.Models.EntityLayer;
 public class Receipt
 {
     [Key]
-    public int ReceiptId { get; set; }
+    public int? ReceiptId { get; set; }
     
     [Required]
     public int UserId { get; set; }
@@ -21,7 +21,7 @@ public class Receipt
     public decimal AmountReceived { get; set; }
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
     
     [ForeignKey("UserId")]
     public virtual User User { get; set; }

@@ -9,7 +9,7 @@ namespace Supermarket.Models.EntityLayer;
 public class User
 {
     [Key]
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
     
     [Required]
     [StringLength(50)]
@@ -23,7 +23,7 @@ public class User
     public EUserType UserType { get; set; }
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
     
     public virtual ICollection<Receipt> Receipts { get; set; }
 }

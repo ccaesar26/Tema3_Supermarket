@@ -8,7 +8,7 @@ namespace Supermarket.Models.EntityLayer
     public class Producer
     {
         [Key]
-        public int ProducerId { get; set; }
+        public int? ProducerId { get; set; }
         
         [Required]
         [StringLength(50)]
@@ -19,7 +19,7 @@ namespace Supermarket.Models.EntityLayer
         public string OriginCountry { get; set; }
         
         [DefaultValue(1)]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
         
         public virtual ICollection<Product> Products { get; set; }
     }

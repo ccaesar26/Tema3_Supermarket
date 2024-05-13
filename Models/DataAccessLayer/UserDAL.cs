@@ -1,17 +1,18 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 using Supermarket.Models.EntityLayer;
+using Supermarket.Models.EntityLayer.Enums;
 
 namespace Supermarket.Models.DataAccessLayer;
 
-public static class CategoryDAL
+public static class UserDAL
 {
-    public static IEnumerable<Category> GetCategories()
+    public static IEnumerable<User> GetUsers()
     {
         var connection = DALHelper.Connection;
         try
         {
-            var command = new SqlCommand("spCategorySelectAll", connection)
+            var command = new SqlCommand("spUserSelectAll", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -19,28 +20,29 @@ public static class CategoryDAL
             connection.Open();
             
             var reader = command.ExecuteReader();
-            var categories = new List<Category>();
+            var users = new List<User>();
             
             while (reader.Read())
             {
-                var category = new Category
+                var user = new User
                 {
-                    CategoryId = (int) reader["CategoryId"],
-                    Name = reader["Name"].ToString()!,
-                    Image = reader["Image"].ToString(),
+                    UserId = (int) reader["UserId"],
+                    Username = reader["Username"].ToString()!,
+                    Password = reader["Password"].ToString()!,
+                    UserType = (EUserType) reader["UserType"],
                     IsActive = (bool)reader["IsActive"]
                 };
-                categories.Add(category);
+                users.Add(user);
             }
             
             reader.Close();
             
-            return categories;
+            return users;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return new List<Category>();
+            return new List<User>();
         }
         finally
         {
@@ -48,38 +50,39 @@ public static class CategoryDAL
         }
     }
     
-    public static Category GetCategoryById(int categoryId)
+    public static User GetUserById(int userId)
     {
         var connection = DALHelper.Connection;
         try
         {
-            var command = new SqlCommand("spCategorySelectOne", connection)
+            var command = new SqlCommand("spUserSelectOne", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@CategoryId", categoryId);
-
+            command.Parameters.AddWithValue("@UserId", userId);
+            
             connection.Open();
             
             var reader = command.ExecuteReader();
-            var category = new Category();
+            var user = new User();
             
-            while (reader.Read())
+            if (reader.Read())
             {
-                category.CategoryId = (int) reader["CategoryId"];
-                category.Name = reader["Name"].ToString()!;
-                category.Image = reader["Image"].ToString();
-                category.IsActive = (bool)reader["IsActive"];
+                user.UserId = (int) reader["UserId"];
+                user.Username = reader["Username"].ToString()!;
+                user.Password = reader["Password"].ToString()!;
+                user.UserType = (EUserType) reader["UserType"];
+                user.IsActive = (bool)reader["IsActive"];
             }
             
             reader.Close();
             
-            return category;
+            return user;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return new Category();
+            return new User();
         }
         finally
         {
@@ -87,51 +90,22 @@ public static class CategoryDAL
         }
     }
     
-    public static bool InsertCategory(Category category)
+    public static bool InsertUser(User user)
     {
         var connection = DALHelper.Connection;
         try
         {
-            var command = new SqlCommand("spCategoryInsert", connection)
+            var command = new SqlCommand("spUserInsert", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@Name", category.Name);
-            command.Parameters.AddWithValue("@Image", category.Image);
-
-            connection.Open();
-            var result = command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@Username", user.Username);
+            command.Parameters.AddWithValue("@Password", user.Password);
+            command.Parameters.AddWithValue("@UserType", user.UserType);
             
-            return result > 0;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return false;
-        }
-        finally
-        {
-            connection.Close();
-        }
-    }
-    
-    public static bool UpdateCategory(Category category)
-    {
-        var connection = DALHelper.Connection;
-        try
-        {
-            var command = new SqlCommand("spCategoryUpdate", connection)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            command.Parameters.AddWithValue("@CategoryId", category.CategoryId);
-            command.Parameters.AddWithValue("@Name", category.Name);
-            command.Parameters.AddWithValue("@Image", category.Image);
-
             connection.Open();
-            var result = command.ExecuteNonQuery();
             
-            return result > 0;
+            return command.ExecuteNonQuery() > 0;
         }
         catch (Exception e)
         {
@@ -144,21 +118,49 @@ public static class CategoryDAL
         }
     }
     
-    public static bool DeleteCategory(int categoryId)
+    public static bool UpdateUser(User user)
     {
         var connection = DALHelper.Connection;
         try
         {
-            var command = new SqlCommand("spCategoryDelete", connection)
+            var command = new SqlCommand("spUserUpdate", connection)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@CategoryId", categoryId);
-
-            connection.Open();
-            var result = command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@UserId", user.UserId);
+            command.Parameters.AddWithValue("@Username", user.Username);
+            command.Parameters.AddWithValue("@Password", user.Password);
+            command.Parameters.AddWithValue("@UserType", user.UserType);
             
-            return result > 0;
+            connection.Open();
+            
+            return command.ExecuteNonQuery() > 0;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+    
+    public static bool DeleteUser(int userId)
+    {
+        var connection = DALHelper.Connection;
+        try
+        {
+            var command = new SqlCommand("spUserDelete", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@UserId", userId);
+            
+            connection.Open();
+            
+            return command.ExecuteNonQuery() > 0;
         }
         catch (Exception e)
         {

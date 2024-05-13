@@ -9,7 +9,7 @@ namespace Supermarket.Models.EntityLayer;
 public class Offer
 {
     [Key]
-    public int OfferId { get; set; }
+    public int? OfferId { get; set; }
     
     [Required]
     public int ProductId { get; set; }
@@ -27,7 +27,7 @@ public class Offer
     public EReason Reason { get; set; }
     
     [DefaultValue(1)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
     
     [ForeignKey("ProductId")]
     public virtual Product Product { get; set; }

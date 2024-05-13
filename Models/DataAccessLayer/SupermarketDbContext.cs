@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Supermarket.Models.EntityLayer;
+using ConfigurationManager = Supermarket.Services.ConfigurationManager;
 
 namespace Supermarket.Models.DataAccessLayer;
 
@@ -22,6 +22,6 @@ public class SupermarketDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=DESKTOP-A3VTMLH;Initial Catalog=dbSupermarket;User Id=sa;Password=1q2w3e;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer(ConfigurationManager.GetSetting("ConnectionStrings:SupermarketDb"));
     }
 }
