@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Configuration;
 using Supermarket.Models.EntityLayer.Enums;
+using Supermarket.Services;
 
 namespace Supermarket.Models.EntityLayer;
 
@@ -31,7 +31,7 @@ public class Stock
     public decimal PurchasePrice { get; set; }
     
     [NotMapped]
-    public decimal SellingPrice => PurchasePrice * Convert.ToDecimal(ConfigurationManager.AppSettings["SellingPriceMultiplier"]);
+    public decimal SellingPrice => PurchasePrice * decimal.Parse(ConfigurationManager.GetSetting("ProfitPercentage") ?? "1.0");
     
     [DefaultValue(1)]
     public bool IsActive { get; set; }
