@@ -7,12 +7,48 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:viewModels="clr-namespace:Supermarket.ViewModels"
       mc:Ignorable="d"
-      Title="AdminPage" Height="800" Width="1200">
-    <StackPanel>
-        <ui:NavigationView IsBackButtonVisible="Auto">
+      Title="AdminPage">
+    <DockPanel>
+        <ui:NavigationView 
+            IsBackButtonVisible="Auto"
+            IsPaneToggleVisible="True"
+            PaneDisplayMode="Left"
+            PaneTitle="Menu">
+            <ui:NavigationView.AutoSuggestBox>
+                <ui:AutoSuggestBox Margin="8,0,8,8" PlaceholderText="Search" />
+            </ui:NavigationView.AutoSuggestBox>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Home" Icon="{ui:SymbolIcon Home24}"/>
+                <ui:NavigationViewItem 
+                    Content="Home" 
+                    Icon="{ui:SymbolIcon Home24}"/>
+                <ui:NavigationViewItem 
+                    Content="Products" 
+                    Icon="{ui:SymbolIcon Box24}"/>
+                <ui:NavigationViewItem 
+                    Content="Categories" 
+                    Icon="{ui:SymbolIcon BoxMultiple24}"/>
+                <ui:NavigationViewItem 
+                    Content="Producers" 
+                    Icon="{ui:SymbolIcon BuildingFactory24}"
+                    TargetPageType="local:ProducerPanel"/>
+                <ui:NavigationViewItem 
+                    Content="Stocks" 
+                    Icon="{ui:SymbolIcon Storage24}"/>
+                <ui:NavigationViewItem 
+                    Content="Receipts" 
+                    Icon="{ui:SymbolIcon Receipt24}"/>
+                <ui:NavigationViewItem 
+                    Content="Offers" 
+                    Icon="{ui:SymbolIcon ShoppingBagPercent24}"/>
+                <ui:NavigationViewItem 
+                    Content="Users" 
+                    Icon="{ui:SymbolIcon People24}"/>
             </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem 
+                    Content="Reports" 
+                    Icon="{ui:SymbolIcon TaskListSquareLtr24}"/>
+            </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
-    </StackPanel>
+    </DockPanel>
 </Page>

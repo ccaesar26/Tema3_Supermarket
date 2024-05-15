@@ -11,8 +11,8 @@
     <ui:FluentWindow.DataContext>
         <viewModels:MainWindowViewModel />
     </ui:FluentWindow.DataContext>
-    <StackPanel>
-        <ui:TitleBar Title="Supermarket Management System" />
+    <DockPanel>
+        <ui:TitleBar Title="Supermarket Management System" DockPanel.Dock="Top" />
         <Frame Name="MainFrame" Content="{Binding CurrentPage}"/>
-    </StackPanel>
+    </DockPanel>
 </ui:FluentWindow>

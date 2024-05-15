@@ -20,7 +20,6 @@ public class MainWindowViewModel : BaseViewModel
     
     public MainWindowViewModel()
     {
-        CurrentPage = new AdminPage();
         var loginWindow = new LoginWindow();
         var result = loginWindow.ShowDialog();
 
