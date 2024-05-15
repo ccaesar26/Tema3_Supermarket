@@ -144,7 +144,7 @@ public static class CategoryDAL
         }
     }
     
-    public static bool DeleteCategory(int categoryId)
+    public static bool DeleteCategory(Category category)
     {
         var connection = DALHelper.Connection;
         try
@@ -153,7 +153,7 @@ public static class CategoryDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@CategoryId", categoryId);
+            command.Parameters.AddWithValue("@CategoryId", category.CategoryId);
 
             connection.Open();
             var result = command.ExecuteNonQuery();

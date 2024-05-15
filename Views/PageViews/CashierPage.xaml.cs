@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Supermarket.ViewModels;
+namespace Supermarket.Views.PageViews;
 
 public partial class CashierPage : Page
 {

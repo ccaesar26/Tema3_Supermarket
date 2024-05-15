@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\Icons\store.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,12 +28,32 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\MainWindow.xaml">
+      <Page Update="Views\AdminItemViews\CategoryPanel.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Views\CashierPage.xaml">
+      <Page Update="Views\AdminItemViews\ProducerPanel.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Pages\AdminPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Pages\CashierPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Windows\MainWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Windows\LoginWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -45,133 +66,139 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="Assets\Apparel\belt.png" />
-      <Resource Include="Assets\Apparel\belt.png" />
       <None Remove="Assets\Apparel\blouse.png" />
-      <Resource Include="Assets\Apparel\blouse.png" />
       <None Remove="Assets\Apparel\dress.png" />
-      <Resource Include="Assets\Apparel\dress.png" />
       <None Remove="Assets\Apparel\pullover.png" />
-      <Resource Include="Assets\Apparel\pullover.png" />
       <None Remove="Assets\Apparel\shirt.png" />
-      <Resource Include="Assets\Apparel\shirt.png" />
       <None Remove="Assets\Apparel\shoes.png" />
-      <Resource Include="Assets\Apparel\shoes.png" />
       <None Remove="Assets\Apparel\skirt.png" />
-      <Resource Include="Assets\Apparel\skirt.png" />
       <None Remove="Assets\Apparel\socks.png" />
-      <Resource Include="Assets\Apparel\socks.png" />
       <None Remove="Assets\Apparel\t-shirt.png" />
-      <Resource Include="Assets\Apparel\t-shirt.png" />
       <None Remove="Assets\Apparel\trousers.png" />
-      <Resource Include="Assets\Apparel\trousers.png" />
       <None Remove="Assets\Electronics\fridge.png" />
-      <Resource Include="Assets\Electronics\fridge.png" />
       <None Remove="Assets\Electronics\headset.png" />
-      <Resource Include="Assets\Electronics\headset.png" />
       <None Remove="Assets\Electronics\laptop.png" />
-      <Resource Include="Assets\Electronics\laptop.png" />
       <None Remove="Assets\Electronics\microwave.png" />
-      <Resource Include="Assets\Electronics\microwave.png" />
       <None Remove="Assets\Electronics\phone.png" />
-      <Resource Include="Assets\Electronics\phone.png" />
       <None Remove="Assets\Electronics\radio.png" />
-      <Resource Include="Assets\Electronics\radio.png" />
       <None Remove="Assets\Electronics\speaker.png" />
-      <Resource Include="Assets\Electronics\speaker.png" />
       <None Remove="Assets\Electronics\tv.png" />
-      <Resource Include="Assets\Electronics\tv.png" />
       <None Remove="Assets\Grocery\apples.png" />
-      <Resource Include="Assets\Grocery\apples.png" />
       <None Remove="Assets\Grocery\bananas.png" />
-      <Resource Include="Assets\Grocery\bananas.png" />
       <None Remove="Assets\Grocery\beer.png" />
-      <Resource Include="Assets\Grocery\beer.png" />
       <None Remove="Assets\Grocery\bread.png" />
-      <Resource Include="Assets\Grocery\bread.png" />
       <None Remove="Assets\Grocery\candy.png" />
-      <Resource Include="Assets\Grocery\candy.png" />
       <None Remove="Assets\Grocery\cereal.png" />
-      <Resource Include="Assets\Grocery\cereal.png" />
       <None Remove="Assets\Grocery\cheese.png" />
-      <Resource Include="Assets\Grocery\cheese.png" />
       <None Remove="Assets\Grocery\chips.png" />
-      <Resource Include="Assets\Grocery\chips.png" />
       <None Remove="Assets\Grocery\chocolate.png" />
-      <Resource Include="Assets\Grocery\chocolate.png" />
       <None Remove="Assets\Grocery\coffee.png" />
-      <Resource Include="Assets\Grocery\coffee.png" />
       <None Remove="Assets\Grocery\eggs.png" />
-      <Resource Include="Assets\Grocery\eggs.png" />
       <None Remove="Assets\Grocery\flour.png" />
-      <Resource Include="Assets\Grocery\flour.png" />
       <None Remove="Assets\Grocery\ice-cream.png" />
-      <Resource Include="Assets\Grocery\ice-cream.png" />
       <None Remove="Assets\Grocery\lemons.png" />
-      <Resource Include="Assets\Grocery\lemons.png" />
       <None Remove="Assets\Grocery\meat.png" />
-      <Resource Include="Assets\Grocery\meat.png" />
       <None Remove="Assets\Grocery\milk.png" />
-      <Resource Include="Assets\Grocery\milk.png" />
       <None Remove="Assets\Grocery\oil.png" />
-      <Resource Include="Assets\Grocery\oil.png" />
       <None Remove="Assets\Grocery\oranges.png" />
-      <Resource Include="Assets\Grocery\oranges.png" />
       <None Remove="Assets\Grocery\sauce.png" />
-      <Resource Include="Assets\Grocery\sauce.png" />
       <None Remove="Assets\Grocery\sausage.png" />
-      <Resource Include="Assets\Grocery\sausage.png" />
       <None Remove="Assets\Grocery\soda.png" />
-      <Resource Include="Assets\Grocery\soda.png" />
       <None Remove="Assets\Grocery\sugar.png" />
-      <Resource Include="Assets\Grocery\sugar.png" />
       <None Remove="Assets\Grocery\tea.png" />
-      <Resource Include="Assets\Grocery\tea.png" />
       <None Remove="Assets\Grocery\tomato.png" />
-      <Resource Include="Assets\Grocery\tomato.png" />
       <None Remove="Assets\Grocery\tuna.png" />
-      <Resource Include="Assets\Grocery\tuna.png" />
       <None Remove="Assets\Grocery\water.png" />
-      <Resource Include="Assets\Grocery\water.png" />
       <None Remove="Assets\Grocery\wine.png" />
-      <Resource Include="Assets\Grocery\wine.png" />
       <None Remove="Assets\Grocery\yoghurt.png" />
-      <Resource Include="Assets\Grocery\yoghurt.png" />
       <None Remove="Assets\Home\broom.png" />
-      <Resource Include="Assets\Home\broom.png" />
       <None Remove="Assets\Home\chlorine.png" />
-      <Resource Include="Assets\Home\chlorine.png" />
       <None Remove="Assets\Home\detergent.png" />
-      <Resource Include="Assets\Home\detergent.png" />
       <None Remove="Assets\Home\mop.png" />
-      <Resource Include="Assets\Home\mop.png" />
       <None Remove="Assets\Home\sponge.png" />
-      <Resource Include="Assets\Home\sponge.png" />
       <None Remove="Assets\Home\sprayer.png" />
-      <Resource Include="Assets\Home\sprayer.png" />
       <None Remove="Assets\Sport\basketball.png" />
-      <Resource Include="Assets\Sport\basketball.png" />
+      <Resource Include="Assets\Images\Apparel\belt.png" />
+      <Resource Include="Assets\Images\Apparel\blouse.png" />
+      <Resource Include="Assets\Images\Apparel\dress.png" />
+      <Resource Include="Assets\Images\Apparel\pullover.png" />
+      <Resource Include="Assets\Images\Apparel\shirt.png" />
+      <Resource Include="Assets\Images\Apparel\shoes.png" />
+      <Resource Include="Assets\Images\Apparel\skirt.png" />
+      <Resource Include="Assets\Images\Apparel\socks.png" />
+      <Resource Include="Assets\Images\Apparel\t-shirt.png" />
+      <Resource Include="Assets\Images\Apparel\trousers.png" />
+      <Resource Include="Assets\Images\Electronics\fridge.png" />
+      <Resource Include="Assets\Images\Electronics\headset.png" />
+      <Resource Include="Assets\Images\Electronics\laptop.png" />
+      <Resource Include="Assets\Images\Electronics\microwave.png" />
+      <Resource Include="Assets\Images\Electronics\phone.png" />
+      <Resource Include="Assets\Images\Electronics\radio.png" />
+      <Resource Include="Assets\Images\Electronics\speaker.png" />
+      <Resource Include="Assets\Images\Electronics\tv.png" />
+      <Resource Include="Assets\Images\Grocery\apples.png" />
+      <Resource Include="Assets\Images\Grocery\bananas.png" />
+      <Resource Include="Assets\Images\Grocery\beer.png" />
+      <Resource Include="Assets\Images\Grocery\bread.png" />
+      <Resource Include="Assets\Images\Grocery\candy.png" />
+      <Resource Include="Assets\Images\Grocery\cereal.png" />
+      <Resource Include="Assets\Images\Grocery\cheese.png" />
+      <Resource Include="Assets\Images\Grocery\chips.png" />
+      <Resource Include="Assets\Images\Grocery\chocolate.png" />
+      <Resource Include="Assets\Images\Grocery\coffee.png" />
+      <Resource Include="Assets\Images\Grocery\eggs.png" />
+      <Resource Include="Assets\Images\Grocery\flour.png" />
+      <Resource Include="Assets\Images\Grocery\ice-cream.png" />
+      <Resource Include="Assets\Images\Grocery\lemons.png" />
+      <Resource Include="Assets\Images\Grocery\meat.png" />
+      <Resource Include="Assets\Images\Grocery\milk.png" />
+      <Resource Include="Assets\Images\Grocery\oil.png" />
+      <Resource Include="Assets\Images\Grocery\oranges.png" />
+      <Resource Include="Assets\Images\Grocery\sauce.png" />
+      <Resource Include="Assets\Images\Grocery\sausage.png" />
+      <Resource Include="Assets\Images\Grocery\soda.png" />
+      <Resource Include="Assets\Images\Grocery\sugar.png" />
+      <Resource Include="Assets\Images\Grocery\tea.png" />
+      <Resource Include="Assets\Images\Grocery\tomato.png" />
+      <Resource Include="Assets\Images\Grocery\tuna.png" />
+      <Resource Include="Assets\Images\Grocery\water.png" />
+      <Resource Include="Assets\Images\Grocery\wine.png" />
+      <Resource Include="Assets\Images\Grocery\yoghurt.png" />
+      <Resource Include="Assets\Images\Home\broom.png" />
+      <Resource Include="Assets\Images\Home\chlorine.png" />
+      <Resource Include="Assets\Images\Home\detergent.png" />
+      <Resource Include="Assets\Images\Home\mop.png" />
+      <Resource Include="Assets\Images\Home\sponge.png" />
+      <Resource Include="Assets\Images\Home\sprayer.png" />
       <None Remove="Assets\Sport\football.png" />
-      <Resource Include="Assets\Sport\football.png" />
       <None Remove="Assets\Sport\racket.png" />
-      <Resource Include="Assets\Sport\racket.png" />
       <None Remove="Assets\Sport\table-tennis.png" />
-      <Resource Include="Assets\Sport\table-tennis.png" />
       <None Remove="Assets\Sport\tennis.png" />
-      <Resource Include="Assets\Sport\tennis.png" />
       <None Remove="Assets\Sport\volleyball.png" />
-      <Resource Include="Assets\Sport\volleyball.png" />
       <None Remove="Assets\Toys\ball.png" />
-      <Resource Include="Assets\Toys\ball.png" />
+      <Resource Include="Assets\Images\Sport\basketball.png" />
+      <Resource Include="Assets\Images\Sport\football.png" />
+      <Resource Include="Assets\Images\Sport\racket.png" />
+      <Resource Include="Assets\Images\Sport\table-tennis.png" />
+      <Resource Include="Assets\Images\Sport\tennis.png" />
+      <Resource Include="Assets\Images\Sport\volleyball.png" />
       <None Remove="Assets\Toys\bear.png" />
-      <Resource Include="Assets\Toys\bear.png" />
       <None Remove="Assets\Toys\blocks.png" />
-      <Resource Include="Assets\Toys\blocks.png" />
       <None Remove="Assets\Toys\horse.png" />
-      <Resource Include="Assets\Toys\horse.png" />
       <None Remove="Assets\Toys\kite.png" />
-      <Resource Include="Assets\Toys\kite.png" />
       <None Remove="Assets\Toys\train.png" />
-      <Resource Include="Assets\Toys\train.png" />
+      <None Remove="Assets\Icons\store.ico" />
+      <Resource Include="Assets\Icons\store.ico" />
+      <Resource Include="Assets\Images\Toys\ball.png" />
+      <Resource Include="Assets\Images\Toys\bear.png" />
+      <Resource Include="Assets\Images\Toys\blocks.png" />
+      <Resource Include="Assets\Images\Toys\horse.png" />
+      <Resource Include="Assets\Images\Toys\kite.png" />
+      <Resource Include="Assets\Images\Toys\train.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\Images\" />
     </ItemGroup>
 
 </Project>

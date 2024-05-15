@@ -1,14 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Microsoft.VisualBasic.ApplicationServices;
 using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.ViewModels.DataTransferObjects;
 using Supermarket.Views;
-using Wpf.Ui.Controls;
+using Supermarket.Views.WindowViews;
 using Wpf.Ui.Input;
-using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace Supermarket.ViewModels;
+namespace Supermarket.ViewModels.WindowViewModels;
 
 public class LoginWindowViewModel : BaseViewModel
 {

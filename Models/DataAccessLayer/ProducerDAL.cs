@@ -144,7 +144,7 @@ public static class ProducerDAL
         }
     }
     
-    public static bool DeleteProducer(int producerId)
+    public static bool DeleteProducer(Producer producer)
     {
         var connection = DALHelper.Connection;
         try
@@ -153,7 +153,7 @@ public static class ProducerDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@ProducerId", producerId);
+            command.Parameters.AddWithValue("@ProducerId", producer.ProducerId);
             
             connection.Open();
             command.ExecuteNonQuery();

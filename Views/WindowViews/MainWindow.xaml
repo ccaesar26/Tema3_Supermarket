@@ -1,18 +1,17 @@
-﻿<ui:FluentWindow x:Class="Supermarket.MainWindow"
+﻿<ui:FluentWindow x:Class="Supermarket.Views.WindowViews.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Supermarket"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:viewModels="clr-namespace:Supermarket.ViewModels"
+        xmlns:windowViewModels="clr-namespace:Supermarket.ViewModels.WindowViewModels"
         mc:Ignorable="d"
         Title="" Height="800" Width="1200">
     <ui:FluentWindow.DataContext>
-        <viewModels:MainWindowViewModel />
+        <windowViewModels:MainWindowViewModel />
     </ui:FluentWindow.DataContext>
     <DockPanel>
-        <ui:TitleBar Title="Supermarket Management System" DockPanel.Dock="Top" />
+        <ui:TitleBar Title="Supermarket Management System" Icon="{ui:SymbolIcon ShoppingBag24}" DockPanel.Dock="Top" />
         <Frame Name="MainFrame" Content="{Binding CurrentPage}"/>
     </DockPanel>
 </ui:FluentWindow>

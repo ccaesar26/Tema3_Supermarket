@@ -1,11 +1,12 @@
-﻿<Page x:Class="Supermarket.Views.AdminPage"
+﻿<Page x:Class="Supermarket.Views.PageViews.AdminPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Supermarket.Views"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:viewModels="clr-namespace:Supermarket.ViewModels"
+      xmlns:views="clr-namespace:Supermarket.Views"
+      xmlns:adminItemPageViews="clr-namespace:Supermarket.Views.AdminItemPageViews"
       mc:Ignorable="d"
       Title="AdminPage">
     <DockPanel>
@@ -26,11 +27,12 @@
                     Icon="{ui:SymbolIcon Box24}"/>
                 <ui:NavigationViewItem 
                     Content="Categories" 
-                    Icon="{ui:SymbolIcon BoxMultiple24}"/>
+                    Icon="{ui:SymbolIcon BoxMultiple24}"
+                    TargetPageType="adminItemPageViews:CategoryPage"/>
                 <ui:NavigationViewItem 
                     Content="Producers" 
                     Icon="{ui:SymbolIcon BuildingFactory24}"
-                    TargetPageType="local:ProducerPanel"/>
+                    TargetPageType="adminItemPageViews:ProducerPage"/>
                 <ui:NavigationViewItem 
                     Content="Stocks" 
                     Icon="{ui:SymbolIcon Storage24}"/>

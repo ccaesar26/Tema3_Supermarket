@@ -1,8 +1,10 @@
 ﻿using System.Windows;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Views;
+using Supermarket.Views.PageViews;
+using Supermarket.Views.WindowViews;
 
-namespace Supermarket.ViewModels;
+namespace Supermarket.ViewModels.WindowViewModels;
 
 public class MainWindowViewModel : BaseViewModel
 {

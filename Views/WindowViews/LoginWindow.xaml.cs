@@ -1,7 +1,6 @@
-﻿using System.Windows;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 
-namespace Supermarket.Views;
+namespace Supermarket.Views.WindowViews;
 
 public partial class LoginWindow : FluentWindow
 {

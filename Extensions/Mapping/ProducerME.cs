@@ -9,6 +9,7 @@ public static class ProducerME
     {
         return new ProducerDTO
         {
+            Id = producer.ProducerId,
             Name = producer.Name,
             OriginCountry = producer.OriginCountry
         };
@@ -18,8 +19,9 @@ public static class ProducerME
     {
         return new Producer
         {
-            Name = producerDTO.Name,
-            OriginCountry = producerDTO.OriginCountry
+            ProducerId = producerDTO.Id,
+            Name = producerDTO.Name ?? "",
+            OriginCountry = producerDTO.OriginCountry ?? ""
         };
     }
 }

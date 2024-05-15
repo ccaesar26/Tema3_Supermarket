@@ -147,7 +147,7 @@ public static class UserDAL
         }
     }
     
-    public static bool DeleteUser(int userId)
+    public static bool DeleteUser(User user)
     {
         var connection = DALHelper.Connection;
         try
@@ -156,7 +156,7 @@ public static class UserDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@UserId", userId);
+            command.Parameters.AddWithValue("@UserId", user.UserId);
             
             connection.Open();
             
