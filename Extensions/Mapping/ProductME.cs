@@ -13,9 +13,11 @@ public static class ProductME
             Id = product.ProductId,
             Name = product.Name,
             Barcode = product.Barcode,
-            CategoryName = CategoryBLL.GetCategories()
-                .First(category => category.Id == product.CategoryId).Name 
-                         ?? throw new ArgumentException("Invalid category id"),
+            Category = CategoryBLL.GetCategories()
+                .First(category => category.Id == product.CategoryId),
+            Producer = ProducerBLL.GetProducers()
+                .First(producer => producer.Id == product.ProducerId),
+            Image = product.Image
         };
     }
     
@@ -26,12 +28,10 @@ public static class ProductME
             ProductId = productDTO.Id,
             Name = productDTO.Name ?? "",
             Barcode = productDTO.Barcode ?? "",
-            CategoryId = CategoryBLL.GetCategories()
-                .First(category => category.Name == productDTO.CategoryName).Id 
-                         ?? throw new ArgumentException("Invalid category name"),
-            ProducerId = ProducerBLL.GetProducers()
-                .First(producer => producer.Name == productDTO.ProducerName).Id 
-                         ?? throw new ArgumentException("Invalid producer name"),
+            CategoryId = productDTO.Category?.Id 
+                         ?? throw new ArgumentException("Invalid category"),
+            ProducerId = productDTO.Producer?.Id 
+                         ?? throw new ArgumentException("Invalid producer"),
             Image = productDTO.Image ?? ""
         };
     }

@@ -3,7 +3,7 @@ using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Extensions.Mapping;
 
-public static class CatgoryME
+public static class CategoryME
 {
     public static CategoryDTO ToDTO(this Category category)
     {

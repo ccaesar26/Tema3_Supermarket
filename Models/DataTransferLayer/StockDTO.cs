@@ -3,7 +3,7 @@
 public class StockDTO
 {
     public int? Id { get; set; }
-    public string? ProductName { get; set; }
+    public ProductDTO? Product { get; set; }
     public int? Quantity { get; set; }
     public string? Unit { get; set; }
     public string? SupplyDate { get; set; }

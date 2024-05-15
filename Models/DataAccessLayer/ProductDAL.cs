@@ -154,7 +154,7 @@ public static class ProductDAL
         }
     }
     
-    public static bool DeleteProduct(int productId)
+    public static bool DeleteProduct(Product product)
     {
         var connection = DALHelper.Connection;
         try
@@ -163,7 +163,7 @@ public static class ProductDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@ProductId", productId);
+            command.Parameters.AddWithValue("@ProductId", product.ProductId);
 
             connection.Open();
             
