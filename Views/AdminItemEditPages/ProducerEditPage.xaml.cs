@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using Supermarket.Models.DataTransferLayer;
-using Supermarket.ViewModels.AdminItemEditViewModels;
+using Supermarket.ViewModels.ObjectViewModels;
+using Supermarket.ViewModels.PageViewModels.ObjectEditPageViewModels;
 
 namespace Supermarket.Views.AdminItemEditPages;
 
@@ -11,9 +12,9 @@ public partial class ProducerEditPage : Page
         InitializeComponent();
     }
     
-    public ProducerEditPage(ProducerDTO producer)
+    public ProducerEditPage(ProducerViewModel producer)
     {
         InitializeComponent();
-        DataContext = new ProducerEditViewModel(producer);
+        DataContext = new ProducerEditPageViewModel(producer);
     }
 }

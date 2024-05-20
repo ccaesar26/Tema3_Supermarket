@@ -6,7 +6,7 @@ using Supermarket.Models.EntityLayer.Enums;
 
 namespace Supermarket.Models.EntityLayer;
 
-public class Offer
+public sealed class Offer
 {
     [Key]
     public int? OfferId { get; set; }
@@ -30,5 +30,5 @@ public class Offer
     public bool? IsActive { get; set; }
     
     [ForeignKey("ProductId")]
-    public virtual Product Product { get; set; }
+    public Product? Product { get; set; }
 }

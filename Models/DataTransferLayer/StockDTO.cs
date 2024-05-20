@@ -1,4 +1,6 @@
-﻿namespace Supermarket.Models.DataTransferLayer;
+﻿using Supermarket.Services;
+
+namespace Supermarket.Models.DataTransferLayer;
 
 public class StockDTO
 {
@@ -9,5 +11,5 @@ public class StockDTO
     public string? SupplyDate { get; set; }
     public string? ExpiryDate { get; set; }
     public float? PurchasePrice { get; set; }
-    public float? SellingPrice { get; set; }
+    public float? SellingPrice => PurchasePrice * float.Parse(ConfigurationManager.GetSetting("ProfitPercentage") ?? "1.0");
 }

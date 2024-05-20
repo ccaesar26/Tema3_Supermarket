@@ -7,7 +7,7 @@ using Supermarket.Models.EntityLayer.Enums;
 namespace Supermarket.Models.EntityLayer;
 
 [PrimaryKey(nameof(ProductId), nameof(ReceiptId))]
-public class ProductReceipt
+public sealed class ProductReceipt
 {
     [Key]
     public int ReceiptId { get; set; }
@@ -28,8 +28,8 @@ public class ProductReceipt
     public bool? IsActive { get; set; }
     
     [ForeignKey("ReceiptId")]
-    public virtual Receipt Receipt { get; set; }
+    public Receipt? Receipt { get; set; }
     
     [ForeignKey("ProductId")]
-    public virtual Product Product { get; set; }
+    public Product? Product { get; set; }
 }

@@ -7,7 +7,7 @@ using Supermarket.Services;
 
 namespace Supermarket.Models.EntityLayer;
 
-public class Stock
+public sealed class Stock
 {
     [Key]
     public int? StockId { get; set; }
@@ -24,8 +24,7 @@ public class Stock
     [Required]
     public DateTime SupplyDate { get; set; }
     
-    [Required]
-    public DateTime ExpiryDate { get; set; }
+    public DateTime? ExpiryDate { get; set; }
     
     [Required]
     public decimal PurchasePrice { get; set; }
@@ -37,5 +36,5 @@ public class Stock
     public bool? IsActive { get; set; }
     
     [ForeignKey("ProductId")]
-    public virtual Product Product { get; set; }
+    public Product? Product { get; set; }
 }

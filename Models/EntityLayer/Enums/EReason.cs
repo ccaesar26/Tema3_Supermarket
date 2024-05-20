@@ -2,7 +2,7 @@
 
 public enum EReason
 {
-    ProductExpired,
-    ClearanceSale,
+    Expired,
+    Sale,
     Other
 }

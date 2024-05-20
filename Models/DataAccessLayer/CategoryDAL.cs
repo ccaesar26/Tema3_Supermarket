@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.DataAccessLayer;
@@ -68,7 +69,7 @@ public static class CategoryDAL
             {
                 category.CategoryId = (int) reader["CategoryId"];
                 category.Name = reader["Name"].ToString()!;
-                category.Image = reader["Image"].ToString();
+                category.Image = reader["Image"] == DBNull.Value ? null : reader["Image"].ToString();
                 category.IsActive = (bool)reader["IsActive"];
             }
             
@@ -97,7 +98,9 @@ public static class CategoryDAL
                 CommandType = CommandType.StoredProcedure
             };
             command.Parameters.AddWithValue("@Name", category.Name);
-            command.Parameters.AddWithValue("@Image", category.Image);
+            command.Parameters.AddWithValue("@Image", category.Image == null
+                ? DBNull.Value
+                : category.Image);
 
             connection.Open();
             var result = command.ExecuteNonQuery();

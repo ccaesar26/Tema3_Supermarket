@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Supermarket.Models.EntityLayer;
 
-public class Receipt
+public sealed class Receipt
 {
     [Key]
     public int? ReceiptId { get; set; }
@@ -24,9 +24,8 @@ public class Receipt
     public bool? IsActive { get; set; }
     
     [ForeignKey("UserId")]
-    public virtual User User { get; set; }
-    
-    [NotMapped]
-    public virtual ICollection<Product> Products { get; set; }
-    // public virtual ICollection<ProductReceipt> ProductReceipts { get; set; }
+    public User? User { get; set; }
+
+    [NotMapped] 
+    public ICollection<Product?>? Products { private get; set; }
 }

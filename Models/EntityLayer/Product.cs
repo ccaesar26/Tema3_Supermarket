@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Supermarket.Models.EntityLayer;
 
-public class Product
+public sealed class Product
 {
     [Key]
     public int? ProductId { get; set; }
     
-    [Required]
-    public string Name { get; set; }
+    [Required, StringLength(50)]
+    public string? Name { get; set; }
     
-    [Required]
-    public string Barcode { get; set; }
+    [Required, StringLength(50)]
+    public string? Barcode { get; set; }
     
     [Required]
     public int CategoryId { get; set; }
@@ -29,15 +29,14 @@ public class Product
     public bool? IsActive { get; set; } 
     
     [ForeignKey("CategoryId")]
-    public virtual Category Category { get; set; }
+    public Category? Category { get; set; }
     
     [ForeignKey("ProducerId")]
-    public virtual Producer Producer { get; set; }
+    public Producer? Producer { get; set; }
     
-    public virtual Offer? Offer { get; set; }
-    public virtual ICollection<Stock> Stocks { get; set; }
+    public Offer? Offer { get; init; }
+    public ICollection<Stock?>? Stocks { private get; set; }
     
     [NotMapped]
-    public virtual ICollection<Receipt> Receipts { get; set; }
-    // public virtual ICollection<ProductReceipt> ProductReceipts { get; set; }
+    public ICollection<Receipt?>? Receipts { private get; set; }
 }

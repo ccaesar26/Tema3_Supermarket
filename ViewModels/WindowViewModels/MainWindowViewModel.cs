@@ -1,8 +1,6 @@
-﻿using System.Windows;
-using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.Views;
+﻿using Supermarket.ViewModels.PageViewModels;
 using Supermarket.Views.PageViews;
-using Supermarket.Views.WindowViews;
+using Wpf.Ui;
 
 namespace Supermarket.ViewModels.WindowViewModels;
 
@@ -22,30 +20,6 @@ public class MainWindowViewModel : BaseViewModel
     
     public MainWindowViewModel()
     {
-        var loginWindow = new LoginWindow();
-        var result = loginWindow.ShowDialog();
-
-        if (!result.HasValue || !result.Value)
-        {
-            Application.Current.Shutdown();
-        }
-        else
-        {
-            if (loginWindow.DataContext is not LoginWindowViewModel loginContext)
-            {
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                if (UserBLL.IsValidAdmin(loginContext.Username, loginContext.Password))
-                {
-                    CurrentPage = new AdminPage();
-                }
-                else if (UserBLL.IsValidCashier(loginContext.Username, loginContext.Password))
-                {
-                    CurrentPage = new CashierPage();
-                }
-            }
-        }
+        CurrentPage = new LoginPage();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.DataAccessLayer;
@@ -20,6 +21,8 @@ public static class ProductDAL
 
             var reader = command.ExecuteReader();
             var products = new List<Product>();
+            var categories = CategoryDAL.GetCategories().ToList();
+            var producers = ProducerDAL.GetProducers().ToList();
 
             while (reader.Read())
             {
@@ -31,7 +34,13 @@ public static class ProductDAL
                     CategoryId = (int)reader["CategoryId"],
                     ProducerId = (int)reader["ProducerId"],
                     Image = reader["Image"].ToString(),
-                    IsActive = (bool)reader["IsActive"]
+                    IsActive = (bool)reader["IsActive"],
+                    Category = (from c in categories
+                                where c.CategoryId == (int)reader["CategoryId"]
+                                select c).FirstOrDefault(),
+                    Producer = (from p in producers
+                                where p.ProducerId == (int)reader["ProducerId"]
+                                select p).FirstOrDefault()
                 };
                 products.Add(product);
             }
@@ -66,6 +75,8 @@ public static class ProductDAL
             
             var reader = command.ExecuteReader();
             var product = new Product();
+            var categories = CategoryDAL.GetCategories().ToList();
+            var producers = ProducerDAL.GetProducers().ToList();
 
             if (reader.Read())
             {
@@ -76,6 +87,12 @@ public static class ProductDAL
                 product.ProducerId = (int)reader["ProducerId"];
                 product.Image = reader["Image"].ToString();
                 product.IsActive = (bool)reader["IsActive"];
+                product.Category = (from c in categories
+                                where c.CategoryId == (int)reader["CategoryId"]
+                                select c).FirstOrDefault();
+                product.Producer = (from p in producers
+                                where p.ProducerId == (int)reader["ProducerId"]
+                                select p).FirstOrDefault();
             }
 
             reader.Close();
@@ -106,7 +123,9 @@ public static class ProductDAL
             command.Parameters.AddWithValue("@Barcode", product.Barcode);
             command.Parameters.AddWithValue("@CategoryId", product.CategoryId);
             command.Parameters.AddWithValue("@ProducerId", product.ProducerId);
-            command.Parameters.AddWithValue("@Image", product.Image);
+            command.Parameters.AddWithValue("@Image", product.Image == null
+                ? DBNull.Value
+                : product.Image);
 
             connection.Open();
             

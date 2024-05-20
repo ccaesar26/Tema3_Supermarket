@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
 
@@ -31,9 +32,12 @@ public static class StockDAL
                     Quantity = (int) reader["Quantity"],
                     Unit = (EUnit) reader["Unit"],
                     SupplyDate = (DateTime) reader["SupplyDate"],
-                    ExpiryDate = (DateTime) reader["ExpiryDate"],
+                    ExpiryDate = reader["ExpiryDate"] == DBNull.Value 
+                        ? null 
+                        : (DateTime?) reader["ExpiryDate"],
                     PurchasePrice = (decimal) reader["PurchasePrice"],
-                    IsActive = (bool) reader["IsActive"]
+                    IsActive = (bool) reader["IsActive"],
+                    Product = ProductDAL.GetProductById((int) reader["ProductId"])
                 };
                 stocks.Add(stock);
             }
@@ -76,9 +80,12 @@ public static class StockDAL
                 stock.Quantity = (int) reader["Quantity"];
                 stock.Unit = (EUnit) reader["Unit"];
                 stock.SupplyDate = (DateTime) reader["SupplyDate"];
-                stock.ExpiryDate = (DateTime) reader["ExpiryDate"];
+                stock.ExpiryDate = reader["ExpiryDate"] == DBNull.Value 
+                    ? null 
+                    : (DateTime?) reader["ExpiryDate"];
                 stock.PurchasePrice = (decimal) reader["PurchasePrice"];
                 stock.IsActive = (bool) reader["IsActive"];
+                stock.Product = ProductDAL.GetProductById(stock.ProductId);
             }
             
             reader.Close();
@@ -105,10 +112,13 @@ public static class StockDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
+            command.Parameters.AddWithValue("@ProductId", stock.ProductId);
             command.Parameters.AddWithValue("@Quantity", stock.Quantity);
             command.Parameters.AddWithValue("@Unit", stock.Unit);
             command.Parameters.AddWithValue("@SupplyDate", stock.SupplyDate);
-            command.Parameters.AddWithValue("@ExpiryDate", stock.ExpiryDate);
+            command.Parameters.AddWithValue("@ExpiryDate", stock.ExpiryDate == null 
+                ? DBNull.Value 
+                : stock.ExpiryDate);
             command.Parameters.AddWithValue("@PurchasePrice", stock.PurchasePrice);
             
             connection.Open();
@@ -158,7 +168,7 @@ public static class StockDAL
         }
     }
     
-    public static bool DeleteStock(int stockId)
+    public static bool DeleteStock(Stock stock)
     {
         var connection = DALHelper.Connection;
         try
@@ -167,7 +177,7 @@ public static class StockDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@StockId", stockId);
+            command.Parameters.AddWithValue("@StockId", stock.StockId);
             
             connection.Open();
             

@@ -1,7 +1,10 @@
-﻿using Supermarket.Models.BusinessLogicLayer;
+﻿using System.Globalization;
+using System.Runtime.Serialization;
+using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
+using Supermarket.ViewModels.ObjectViewModels;
 
 namespace Supermarket.Extensions.Mapping;
 
@@ -12,14 +15,26 @@ public static class StockME
         return new StockDTO
         {
             Id = stock.StockId,
-            Product = ProductBLL.GetProducts()
-                .First(product => product.Id == stock.ProductId),
+            Product = stock.Product?.ToDTO(),
             Quantity = stock.Quantity,
             Unit = stock.Unit.ToString(),
-            SupplyDate = stock.SupplyDate.ToString("yyyy-MM-dd"),
-            ExpiryDate = stock.ExpiryDate.ToString("yyyy-MM-dd"),
-            PurchasePrice = (float) stock.PurchasePrice,
-            SellingPrice = (float) stock.SellingPrice
+            SupplyDate = stock.SupplyDate.ToString("d"),
+            ExpiryDate = stock.ExpiryDate?.ToString("d"),
+            PurchasePrice = (float) stock.PurchasePrice
+        };
+    }
+    
+    public static StockDTO ToDTO(this StockViewModel stockViewModel)
+    {
+        return new StockDTO
+        {
+            Id = stockViewModel.Id,
+            Product = stockViewModel.Product?.ToDTO(),
+            Quantity = stockViewModel.Quantity,
+            Unit = stockViewModel.Unit,
+            SupplyDate = stockViewModel.SupplyDate,
+            ExpiryDate = stockViewModel.ExpiryDate,
+            PurchasePrice = stockViewModel.PurchasePrice
         };
     }
     
@@ -35,11 +50,27 @@ public static class StockME
             Unit = Enum.Parse<EUnit>(stockDTO.Unit 
                                      ?? throw new ArgumentNullException(nameof(stockDTO.Unit))),
             SupplyDate = DateTime.Parse(stockDTO.SupplyDate 
-                                        ?? throw new ArgumentNullException(nameof(stockDTO.SupplyDate))),
-            ExpiryDate = DateTime.Parse(stockDTO.ExpiryDate 
-                                        ?? throw new ArgumentNullException(nameof(stockDTO.ExpiryDate))),
+                                        ?? throw new ArgumentNullException(nameof(stockDTO.SupplyDate)), new CultureInfo("en-US")),
+            ExpiryDate = stockDTO.ExpiryDate is null or ""
+                         ? null 
+                         : DateTime.Parse(stockDTO.ExpiryDate, new CultureInfo("en-US")),
             PurchasePrice = (decimal?) stockDTO.PurchasePrice 
                             ?? throw new ArgumentNullException(nameof(stockDTO.PurchasePrice)),
+            Product = stockDTO.Product?.ToEntity()
+        };
+    }
+    
+    public static StockViewModel ToViewModel(this StockDTO stockDTO)
+    {
+        return new StockViewModel
+        {
+            Id = stockDTO.Id ?? 0,
+            Product = stockDTO.Product?.ToViewModel(),
+            Quantity = stockDTO.Quantity ?? 0,
+            Unit = stockDTO.Unit ?? "",
+            SupplyDate = stockDTO.SupplyDate ?? "",
+            ExpiryDate = stockDTO.ExpiryDate ?? "",
+            PurchasePrice = stockDTO.PurchasePrice ?? 0
         };
     }
 }

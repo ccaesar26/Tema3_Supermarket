@@ -1,0 +1,156 @@
+﻿<Page x:Class="Supermarket.Views.AdminItemPageViews.ReceiptPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:objectPageViewModels="clr-namespace:Supermarket.ViewModels.PageViewModels.ObjectPageViewModels"
+      mc:Ignorable="d"
+      Title="ReceiptPage">
+    <Page.DataContext>
+        <objectPageViewModels:ReceiptPageViewModel/>
+    </Page.DataContext>
+    <DockPanel>
+        <Grid
+            DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:TextBlock
+                Text="Receipts" 
+                Foreground="White"
+                FontTypography="Title"
+                Padding="16 24"/>
+        </Grid>
+        <ItemsControl
+            ItemsSource="{Binding Receipts}"
+            Padding="8 0 8 16 ">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:Card
+                        Margin="8 0 8 16 "
+                        MinWidth="360">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Receipt No:"
+                                FontTypography="Body"/>
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding Id}"
+                                TextAlignment="Right"
+                                FontTypography="BodyStrong"/>
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Cashier:"
+                                FontTypography="Body"/>
+                            <ui:TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Cashier.Username}"
+                                TextAlignment="Right"
+                                FontTypography="BodyStrong"/>
+                            <ui:TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Issued on:"
+                                FontTypography="Body"/>
+                            <ui:TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Text="{Binding IssueDate}"
+                                TextAlignment="Right"
+                                FontTypography="BodyStrong"/>
+                            <ItemsControl
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                ItemsSource="{Binding ReceiptItems}"
+                                Margin="16">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <ui:TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Text="{Binding Quantity}"
+                                                TextAlignment="Right"
+                                                Margin="0 0 16 0"
+                                                FontTypography="Body"/>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                Orientation="Horizontal">
+                                                <ui:TextBlock
+                                                    Text="{Binding Unit}"
+                                                    FontTypography="Body"/>
+                                                <ui:TextBlock
+                                                    Text="  x  "
+                                                    FontTypography="Body"/>
+                                                <ui:TextBlock
+                                                    Text="{Binding Price}"
+                                                    FontTypography="Body"
+                                                    Margin="0 0 16 0"/>
+                                            </StackPanel>
+                                            <ui:TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"
+                                                Text="{Binding Product.Name}"
+                                                Margin="0 0 16 0"/>
+                                            <ui:TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                Text="{Binding Subtotal}"
+                                                TextAlignment="Right"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ui:TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Text="TOTAL"
+                                FontTypography="BodyStrong"/>
+                            <ui:TextBlock
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Text="{Binding AmountReceived}"
+                                TextAlignment="Right"
+                                FontTypography="BodyStrong"/>
+                        </Grid>
+                    </ui:Card>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+</Page>

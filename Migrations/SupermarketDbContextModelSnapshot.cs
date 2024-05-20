@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Supermarket.Models.DataAccessLayer;
+using Supermarket.Models.DataAccessLayer.Context;
 
 #nullable disable
 
@@ -17,7 +17,7 @@ namespace Supermarket.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -117,7 +117,8 @@ namespace Supermarket.Migrations
 
                     b.Property<string>("Barcode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -131,7 +132,8 @@ namespace Supermarket.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ProducerId")
                         .HasColumnType("int");
@@ -278,13 +280,13 @@ namespace Supermarket.Migrations
             modelBuilder.Entity("Supermarket.Models.EntityLayer.Product", b =>
                 {
                     b.HasOne("Supermarket.Models.EntityLayer.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Supermarket.Models.EntityLayer.Producer", "Producer")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -327,7 +329,7 @@ namespace Supermarket.Migrations
             modelBuilder.Entity("Supermarket.Models.EntityLayer.Stock", b =>
                 {
                     b.HasOne("Supermarket.Models.EntityLayer.Product", "Product")
-                        .WithMany("Stocks")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -335,21 +337,9 @@ namespace Supermarket.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Supermarket.Models.EntityLayer.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Supermarket.Models.EntityLayer.Producer", b =>
-                {
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("Supermarket.Models.EntityLayer.Product", b =>
                 {
                     b.Navigation("Offer");
-
-                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("Supermarket.Models.EntityLayer.User", b =>

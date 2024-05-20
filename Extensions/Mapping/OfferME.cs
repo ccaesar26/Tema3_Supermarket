@@ -2,6 +2,7 @@
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
+using Supermarket.ViewModels.ObjectViewModels;
 
 namespace Supermarket.Extensions.Mapping;
 
@@ -12,12 +13,24 @@ public static class OfferME
         return new OfferDTO
         {
             Id = offer.OfferId,
-            Product = ProductBLL.GetProducts()
-                .First(product => product.Id == offer.ProductId),
+            Product = offer.Product?.ToDTO(),
             DiscountPercentage = offer.DiscountPercentage,
-            StartDate = offer.StartDate.ToString("yyyy-MM-dd"),
-            EndDate = offer.EndDate.ToString("yyyy-MM-dd"),
+            StartDate = offer.StartDate.ToString("d"),
+            EndDate = offer.EndDate.ToString("d"),
             Reason = offer.Reason.ToString()
+        };
+    }
+    
+    public static OfferDTO ToDTO(this OfferViewModel offerViewModel)
+    {
+        return new OfferDTO
+        {
+            Id = offerViewModel.Id,
+            Product = offerViewModel.Product.ToDTO(),
+            DiscountPercentage = offerViewModel.DiscountPercentage,
+            StartDate = offerViewModel.StartDate,
+            EndDate = offerViewModel.EndDate,
+            Reason = offerViewModel.Reason
         };
     }
     
@@ -26,7 +39,8 @@ public static class OfferME
         return new Offer
         {
             OfferId = offerDTO.Id,
-            ProductId = offerDTO.Id 
+            ProductId = offerDTO.Product?.Id
+                        ?? ProductBLL.GetProducts().FirstOrDefault(p => p.Name == offerDTO.Product?.Name)?.Id 
                         ?? throw new ArgumentNullException(nameof(offerDTO.Product.Id)),
             DiscountPercentage = offerDTO.DiscountPercentage 
                                 ?? throw new ArgumentNullException(nameof(offerDTO.DiscountPercentage)),
@@ -35,7 +49,21 @@ public static class OfferME
             EndDate = DateTime.Parse(offerDTO.EndDate 
                                     ?? throw new ArgumentNullException(nameof(offerDTO.EndDate))),
             Reason = Enum.Parse<EReason>(offerDTO.Reason 
-                    ?? throw new ArgumentNullException(nameof(offerDTO.Reason)))
+                    ?? throw new ArgumentNullException(nameof(offerDTO.Reason))),
+            Product = offerDTO.Product?.ToEntity()
+        };
+    }
+    
+    public static OfferViewModel ToViewModel(this OfferDTO offerDTO)
+    {
+        return new OfferViewModel
+        {
+            Id = offerDTO.Id ?? 0,
+            Product = offerDTO.Product?.ToViewModel() ?? new ProductViewModel(),
+            DiscountPercentage = offerDTO.DiscountPercentage ?? 0,
+            StartDate = offerDTO.StartDate ?? "",
+            EndDate = offerDTO.EndDate ?? "",
+            Reason = offerDTO.Reason ?? ""
         };
     }
 }

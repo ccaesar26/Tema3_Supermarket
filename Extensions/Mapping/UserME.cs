@@ -1,6 +1,7 @@
 ﻿using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
+using Supermarket.ViewModels.ObjectViewModels;
 
 namespace Supermarket.Extensions.Mapping;
 
@@ -17,6 +18,17 @@ public static class UserME
         };
     }
     
+    public static UserDTO ToDTO(this UserViewModel userViewModel)
+    {
+        return new UserDTO
+        {
+            Id = userViewModel.Id,
+            Username = userViewModel.Username,
+            Password = userViewModel.Password,
+            UserType = userViewModel.UserType
+        };
+    }
+    
     public static User ToEntity(this UserDTO userDTO)
     {
         return new User
@@ -30,6 +42,17 @@ public static class UserME
                 "Cashier" => EUserType.Cashier,
                 _ => throw new ArgumentException("Invalid user type")
             }
+        };
+    }
+    
+    public static UserViewModel ToViewModel(this UserDTO userDTO)
+    {
+        return new UserViewModel
+        {
+            Id = userDTO.Id ?? 0,
+            Username = userDTO.Username ?? "",
+            Password = userDTO.Password ?? "",
+            UserType = userDTO.UserType ?? ""
         };
     }
 }

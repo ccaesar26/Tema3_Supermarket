@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Supermarket.Models.EntityLayer;
-public class Category
+public sealed class Category
 {
     [Key]
     public int? CategoryId { get; set; }
@@ -15,9 +15,9 @@ public class Category
     
     [StringLength(200)]
     public string? Image { get; set; }
-    
-    [DefaultValue(1)]
+
+    [DefaultValue(true)] 
     public bool? IsActive { get; set; }
     
-    public virtual ICollection<Product> Products { get; set; }
+    public ICollection<Product?>? Products { private get; set; }
 }

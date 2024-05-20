@@ -44,6 +44,17 @@ public static class ConfigurationManager
             .Build();
         
         return config.GetConnectionString("SupermarketDb");
-
+    }
+    
+    public static string? GetConnectionStringDbContext()
+    {
+        var parentFullName = Directory.GetCurrentDirectory();
+        
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(parentFullName)
+            .AddJsonFile(ConfigFilePath, optional: false, reloadOnChange: true)
+            .Build();
+        
+        return config.GetConnectionString("SupermarketDb");
     }
 }

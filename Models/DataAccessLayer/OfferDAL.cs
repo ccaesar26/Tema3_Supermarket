@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
 
@@ -32,7 +33,8 @@ public static class OfferDAL
                     StartDate = (DateTime) reader["StartDate"],
                     EndDate = (DateTime) reader["EndDate"],
                     Reason = (EReason) reader["Reason"],
-                    IsActive = (bool)reader["IsActive"]
+                    IsActive = (bool)reader["IsActive"],
+                    Product = ProductDAL.GetProductById((int) reader["ProductId"])
                 };
                 offers.Add(offer);
             }
@@ -77,6 +79,7 @@ public static class OfferDAL
                 offer.EndDate = (DateTime) reader["EndDate"];
                 offer.Reason = (EReason) reader["Reason"];
                 offer.IsActive = (bool)reader["IsActive"];
+                offer.Product = ProductDAL.GetProductById((int) reader["ProductId"]);
             }
             
             reader.Close();
@@ -94,7 +97,7 @@ public static class OfferDAL
         }
     }
     
-    public static void AddOffer(Offer offer)
+    public static void InsertOffer(Offer offer)
     {
         var connection = DALHelper.Connection;
         try
@@ -103,6 +106,7 @@ public static class OfferDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
+            command.Parameters.AddWithValue("@ProductId", offer.ProductId);
             command.Parameters.AddWithValue("@DiscountPercentage", offer.DiscountPercentage);
             command.Parameters.AddWithValue("@StartDate", offer.StartDate);
             command.Parameters.AddWithValue("@EndDate", offer.EndDate);
@@ -152,7 +156,7 @@ public static class OfferDAL
         }
     }
     
-    public static bool DeleteOffer(int offerId)
+    public static bool DeleteOffer(Offer offer)
     {
         var connection = DALHelper.Connection;
         try
@@ -161,7 +165,7 @@ public static class OfferDAL
             {
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@OfferId", offerId);
+            command.Parameters.AddWithValue("@OfferId", offer.OfferId);
             
             connection.Open();
             var result = command.ExecuteNonQuery();

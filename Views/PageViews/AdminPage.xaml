@@ -7,24 +7,43 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:views="clr-namespace:Supermarket.Views"
       xmlns:adminItemPageViews="clr-namespace:Supermarket.Views.AdminItemPageViews"
+      xmlns:viewModels="clr-namespace:Supermarket.ViewModels.PageViewModels"
+      xmlns:pageViews="clr-namespace:Supermarket.Views.PageViews"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       Title="AdminPage">
+    <Page.DataContext>
+        <viewModels:AdminPageViewModel/>
+    </Page.DataContext>
     <DockPanel>
         <ui:NavigationView 
-            IsBackButtonVisible="Auto"
+            Name="NavigationView"
+            IsBackButtonVisible="Collapsed"
             IsPaneToggleVisible="True"
             PaneDisplayMode="Left"
+            OpenPaneLength="224"
             PaneTitle="Menu">
+            <i:Interaction.Triggers>
+                <i:EventTrigger 
+                    EventName="Loaded">
+                    <i:InvokeCommandAction 
+                        Command="{Binding NavigateToHomeCommand}" 
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Page}}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ui:NavigationView.AutoSuggestBox>
                 <ui:AutoSuggestBox Margin="8,0,8,8" PlaceholderText="Search" />
             </ui:NavigationView.AutoSuggestBox>
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem 
                     Content="Home" 
-                    Icon="{ui:SymbolIcon Home24}"/>
+                    Icon="{ui:SymbolIcon Home24}"
+                    TargetPageTag="Home"
+                    TargetPageType="pageViews:HomePage"/>
                 <ui:NavigationViewItem 
                     Content="Products" 
-                    Icon="{ui:SymbolIcon Box24}"/>
+                    Icon="{ui:SymbolIcon Box24}"
+                    TargetPageType="adminItemPageViews:ProductPage"/>
                 <ui:NavigationViewItem 
                     Content="Categories" 
                     Icon="{ui:SymbolIcon BoxMultiple24}"
@@ -35,21 +54,31 @@
                     TargetPageType="adminItemPageViews:ProducerPage"/>
                 <ui:NavigationViewItem 
                     Content="Stocks" 
-                    Icon="{ui:SymbolIcon Storage24}"/>
+                    Icon="{ui:SymbolIcon Storage24}"
+                    TargetPageType="adminItemPageViews:StockPage"/>
                 <ui:NavigationViewItem 
                     Content="Receipts" 
-                    Icon="{ui:SymbolIcon Receipt24}"/>
+                    Icon="{ui:SymbolIcon Receipt24}"
+                    TargetPageType="adminItemPageViews:ReceiptPage"/>
                 <ui:NavigationViewItem 
                     Content="Offers" 
-                    Icon="{ui:SymbolIcon ShoppingBagPercent24}"/>
+                    Icon="{ui:SymbolIcon ShoppingBagPercent24}"
+                    TargetPageType="adminItemPageViews:OfferPage"/>
                 <ui:NavigationViewItem 
                     Content="Users" 
-                    Icon="{ui:SymbolIcon People24}"/>
+                    Icon="{ui:SymbolIcon People24}"
+                    TargetPageType="adminItemPageViews:UserPage"/>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem 
                     Content="Reports" 
-                    Icon="{ui:SymbolIcon TaskListSquareLtr24}"/>
+                    Icon="{ui:SymbolIcon TaskListSquareLtr24}"
+                    TargetPageType="pageViews:ReportsPage"/>
+                <ui:NavigationViewItem 
+                    Content="Log out" 
+                    Command="{Binding LogOutCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
+                    Icon="{ui:SymbolIcon SignOut24}"/>
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
     </DockPanel>

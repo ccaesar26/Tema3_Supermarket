@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
 
@@ -7,7 +8,7 @@ namespace Supermarket.Models.DataAccessLayer;
 
 public static class ProductReceiptDAL
 {
-    public static IEnumerable<ProductReceipt> GetProductReceipts()
+    public static IEnumerable<ProductReceipt> GetProductReceiptsByReceipt(Receipt receipt)
     {
         var connection = DALHelper.Connection;
         try
@@ -24,6 +25,8 @@ public static class ProductReceiptDAL
             
             while (reader.Read())
             {
+                if ((int) reader["ReceiptId"] != receipt.ReceiptId) continue;
+                
                 var productReceipt = new ProductReceipt
                 {
                     ProductId = (int) reader["ProductId"],
@@ -31,7 +34,9 @@ public static class ProductReceiptDAL
                     Quantity = (int) reader["Quantity"],
                     Unit = (EUnit) reader["Unit"],
                     Subtotal = (decimal) reader["Subtotal"],
-                    IsActive = (bool) reader["IsActive"]
+                    IsActive = (bool) reader["IsActive"],
+                    Product = ProductDAL.GetProductById((int) reader["ProductId"]),
+                    Receipt = receipt
                 };
                 productReceipts.Add(productReceipt);
             }
@@ -76,6 +81,8 @@ public static class ProductReceiptDAL
                 productReceipt.Unit = (EUnit) reader["Unit"];
                 productReceipt.Subtotal = (decimal) reader["Subtotal"];
                 productReceipt.IsActive = (bool) reader["IsActive"];
+                productReceipt.Product = ProductDAL.GetProductById((int) reader["ProductId"]);
+                productReceipt.Receipt = ReceiptDAL.GetReceiptById((int) reader["ReceiptId"]);
             }
             
             reader.Close();
@@ -176,6 +183,42 @@ public static class ProductReceiptDAL
         {
             Console.WriteLine(e);
             return false;
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+    
+    public static IEnumerable<Product> GetProductsByReceiptId(int receiptId)
+    {
+        var connection = DALHelper.Connection;
+        try
+        {
+            var command = new SqlCommand("spSelectAllProductsByReceipt", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@ReceiptId", receiptId);
+
+            connection.Open();
+            
+            var reader = command.ExecuteReader();
+            var productIds = new List<int>();
+            
+            while (reader.Read())
+            {
+                productIds.Add((int) reader["ProductId"]);
+            }
+            
+            reader.Close();
+
+            return productIds.Select(ProductDAL.GetProductById).ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return new List<Product>();
         }
         finally
         {

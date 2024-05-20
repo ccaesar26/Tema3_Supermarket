@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.DataAccessLayer;
+using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.DataTransferLayer;
 
 namespace Supermarket.Models.BusinessLogicLayer;

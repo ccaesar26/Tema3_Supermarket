@@ -1,0 +1,37 @@
+﻿namespace Supermarket.ViewModels.ObjectViewModels;
+
+public class CategoryViewModel : BaseViewModel
+{
+    private readonly int? _id;
+    public int? Id
+    {
+        get => _id;
+        init
+        {
+            _id = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private string? _name;
+    public string Name
+    {
+        get => _name ?? "";
+        set
+        {
+            _name = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private string? _image;
+    public string Image
+    {
+        get => _image ?? "No image found";
+        set
+        {
+            _image = value;
+            OnPropertyChanged();
+        }
+    }
+}
