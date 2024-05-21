@@ -76,10 +76,11 @@
                             <ui:AutoSuggestBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <ui:TextBlock Text="{Binding Name}"/>
-                                        <ui:TextBlock Text="{Binding Barcode}"/>
-                                        <ui:TextBlock Text="{Binding Producer.Name}"/>
-                                        <ui:TextBlock Text="{Binding Category.Name}"/>
+                                        <ui:TextBlock Text="{Binding Stock.Product.Name}"/>
+                                        <ui:TextBlock Text="{Binding Stock.Product.Barcode}"/>
+                                        <ui:TextBlock Text="{Binding Stock.Product.Producer.Name}"/>
+                                        <ui:TextBlock Text="{Binding Stock.Product.Category.Name}"/>
+                                        <ui:TextBlock Text="{Binding Stock.ExpiryDate}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ui:AutoSuggestBox.ItemTemplate>
@@ -96,9 +97,9 @@
                         Grid.Row="1"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
-                        Margin=" 0 8 0 0">
-                        <Grid
-                            Visibility="{Binding ResultVisibility}">
+                        Margin=" 0 8 0 0"
+                        Visibility="{Binding ResultVisibility}">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>

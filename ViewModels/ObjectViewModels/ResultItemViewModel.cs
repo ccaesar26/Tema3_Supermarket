@@ -47,4 +47,11 @@ public class ResultItemViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
+
+    public static Func<ResultItemViewModel, string>? ToStringFunc { get; set; }
+
+    public override string ToString()
+    {
+        return ToStringFunc?.Invoke(this) ?? Stock.Product.Name;
+    }
 }

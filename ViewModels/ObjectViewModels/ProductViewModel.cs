@@ -67,11 +67,4 @@ public class ProductViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-
-    public static Func<ProductViewModel, string>? ToStringFunc { get; set; }
-
-    public override string ToString()
-    {
-        return ToStringFunc?.Invoke(this) ?? Name;
-    }
 }

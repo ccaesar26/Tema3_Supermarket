@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.ViewModels.PageViewModels.CashierPageViewModels;
 using Wpf.Ui.Controls;
 
@@ -13,7 +14,7 @@ public partial class CreateNewReceiptPage : Page
 
     private void AutoSuggestBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
     {
-        if (DataContext is CreateNewReceiptPageViewModel viewModel && args.SelectedItem is string selectedItem)
+        if (DataContext is CreateNewReceiptPageViewModel viewModel && args.SelectedItem is ResultItemViewModel selectedItem)
         {
             viewModel.SuggestionChosenCommand.Execute(selectedItem);
         }

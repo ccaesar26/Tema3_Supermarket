@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Azure;
@@ -34,7 +35,7 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         
         page.NavigationService?.Navigate(new CreateNewReceiptPage());
     });
-    public ObservableCollection<ProductViewModel> OriginalItems { get; set; }
+    public ObservableCollection<ResultItemViewModel> OriginalItems { get; set; }
     public ObservableCollection<string> Filters { get; } =
     [
         "Product Name",
@@ -51,14 +52,14 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         set
         {
             _selectedFilter = value;
-            ProductViewModel.ToStringFunc = value switch
+            ResultItemViewModel.ToStringFunc = value switch
             {
-                "Product Name" => p => p.Name,
-                "Barcode" => p => p.Barcode,
-                "Category" => p => p.Category.Name,
-                "Producer" => p => p.Producer.Name,
-                "Expiration Date" => p => "",
-                _ => ProductViewModel.ToStringFunc
+                "Product Name" => r => r.Stock.Product.Name,
+                "Barcode" => r => r.Stock.Product.Barcode,
+                "Category" => r => r.Stock.Product.Category.Name,
+                "Producer" => r => r.Stock.Product.Producer.Name,
+                "Expiration Date" => r => r.Stock.ExpiryDate,
+                _ => r => r.Stock.Product.Name
             };
             OnPropertyChanged();
         }
@@ -89,41 +90,51 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
     });
 
     public ICommand SuggestionChosenCommand { get; set; }
+    
+    private Visibility _resultVisibility = Visibility.Collapsed;
+    public Visibility ResultVisibility
+    {
+        get => _resultVisibility;
+        set
+        {
+            _resultVisibility = value;
+            OnPropertyChanged();
+        }
+    }
 
     public CreateNewReceiptPageViewModel()
     {
-        Receipt = new ReceiptViewModel()
+        Receipt = new ReceiptViewModel
         {
             IssueDate = DateTime.Now.ToString("d"),
             Cashier = UserSession.Instance.LoggedInUser ?? new UserViewModel()
         };
         
-        OriginalItems = new ObservableCollection<ProductViewModel>(StockBLL.GetStocks()
-            .GroupBy(s => s.Product?.Name)
-            .Select(s => (s.OrderBy(p => p.ExpiryDate).First().Product 
-                          ?? new ProductDTO()).ToViewModel()));
+        // populate the original items with the stocks that expires first (if multiple for same product)
+        OriginalItems = new ObservableCollection<ResultItemViewModel>(
+            StockBLL.GetStocks()
+                .GroupBy(s => s.Product?.Name)
+                .Select(g => g.MinBy(s => s.ExpiryDate))
+                .Select(s => new ResultItemViewModel()
+                {
+                    Stock = (s ?? new StockDTO()).ToViewModel(),
+                    Offer = OfferBLL.GetOffers().FirstOrDefault(o => o.Product?.Id == s?.Product?.Id)?.ToViewModel() 
+                            ?? new OfferViewModel()
+                })
+        );
         
         SuggestionChosenCommand = new RelayCommand<object>(OnSuggestionChosen);
     }
     
     private void OnSuggestionChosen(object obj)
     {
-        if (obj is not ProductViewModel selectedProduct)
+        if (obj is not ResultItemViewModel selectedProduct)
         {
             return;
         }
 
-        // select the near expiry date stock
-        var result = (StockBLL.GetStocks()
-                .Where(s => s.Product?.Name == selectedProduct.Name)
-                .MinBy(s => s.ExpiryDate) ?? new StockDTO())
-            .ToViewModel();
+        ResultedItem = selectedProduct;
         
-        ResultedItem = new ResultItemViewModel()
-        {
-            Stock = result,
-            Offer = OfferBLL.GetOffers().FirstOrDefault(o => o.Product?.Id == result.Product.Id)?.ToViewModel() 
-                    ?? new OfferViewModel()
-        };
+        ResultVisibility = Visibility.Visible;
     }
 }

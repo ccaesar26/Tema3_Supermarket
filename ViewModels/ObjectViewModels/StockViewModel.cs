@@ -64,7 +64,7 @@ public class StockViewModel : BaseViewModel
     private string? _expiryDate;
     public string ExpiryDate
     {
-        get => _expiryDate ?? "";
+        get => _expiryDate is null or "" ? "N/A" : _expiryDate;
         set
         {
             _expiryDate = value;
