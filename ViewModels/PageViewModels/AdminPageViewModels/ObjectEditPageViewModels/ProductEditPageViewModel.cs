@@ -34,24 +34,24 @@ public class ProductEditPageViewModel : BaseViewModel
     
     public string Category
     {
-        get => Product.Category?.Name ?? "";
+        get => Product.Category.Name;
         set
         {
             Product.Category = (from category in CategoryBLL.GetCategories().Select(c => c.ToViewModel())
                 where category.Name == value
-                select category).FirstOrDefault();
+                select category).FirstOrDefault() ?? new CategoryViewModel();
             OnPropertyChanged();
         }
     }
     
     public string Producer
     {
-        get => Product.Producer?.Name ?? "";
+        get => Product.Producer.Name;
         set
         {
             Product.Producer = (from producer in ProducerBLL.GetProducers().Select(p => p.ToViewModel())
                 where producer.Name == value
-                select producer).FirstOrDefault();
+                select producer).FirstOrDefault() ?? new ProducerViewModel();
             OnPropertyChanged();
         }
     }
@@ -132,7 +132,7 @@ public class ProductEditPageViewModel : BaseViewModel
         }
     }
     
-    private string? _initialBarcode;
+    private readonly string? _initialBarcode;
     public ProductEditPageViewModel()
     {
         Product = new ProductViewModel();
@@ -182,14 +182,14 @@ public class ProductEditPageViewModel : BaseViewModel
                 }
             }
             
-            if (Product.Category is null)
+            if (Product.Category.Name == "")
             {
                 ErrorMessage = "Category is required";
                 CategoryHasError = true;
                 return;
             }
             
-            if (Product.Producer is null)
+            if (Product.Producer.Name == "")
             {
                 ErrorMessage = "Producer is required";
                 ProducerHasError = true;
@@ -215,7 +215,7 @@ public class ProductEditPageViewModel : BaseViewModel
             page?.NavigationService?.Navigate(new ProductPage());
         });
         
-        BrowseForImageCommand = new RelayCommand<object>(o =>
+        BrowseForImageCommand = new RelayCommand<object>(_ =>
         {
             var dialog = new OpenFileDialog
             {

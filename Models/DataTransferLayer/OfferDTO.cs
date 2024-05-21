@@ -2,10 +2,10 @@
 
 public class OfferDTO
 {
-    public int? Id { get; set; }
-    public ProductDTO? Product { get; set; }
-    public int? DiscountPercentage { get; set; }
-    public string? StartDate { get; set; }
-    public string? EndDate { get; set; }
-    public string? Reason { get; set; }
+    public int? Id { get; init; }
+    public ProductDTO? Product { get; init; }
+    public int? DiscountPercentage { get; init; }
+    public string? StartDate { get; init; }
+    public string? EndDate { get; init; }
+    public string? Reason { get; init; }
 }

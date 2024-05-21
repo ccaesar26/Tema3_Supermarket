@@ -1,5 +1,4 @@
-﻿using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.Models.DataTransferLayer;
+﻿using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.ViewModels.ObjectViewModels;
 
@@ -28,8 +27,8 @@ public static class ProductME
             Id = productViewModel.Id,
             Name = productViewModel.Name,
             Barcode = productViewModel.Barcode,
-            Category = productViewModel.Category?.ToDTO(),
-            Producer = productViewModel.Producer?.ToDTO(),
+            Category = productViewModel.Category.ToDTO(),
+            Producer = productViewModel.Producer.ToDTO(),
             Image = productViewModel.Image == "No image found" ? null : productViewModel.Image
         };
     }

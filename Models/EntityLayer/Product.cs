@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,8 +34,8 @@ public sealed class Product
     public Producer? Producer { get; set; }
     
     public Offer? Offer { get; init; }
-    public ICollection<Stock?>? Stocks { private get; set; }
+    public ICollection<Stock?>? Stocks { get; init; }
     
     [NotMapped]
-    public ICollection<Receipt?>? Receipts { private get; set; }
+    public ICollection<Receipt?>? Receipts { get; init; }
 }

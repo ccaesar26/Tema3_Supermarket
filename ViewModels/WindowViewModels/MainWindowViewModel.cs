@@ -1,6 +1,4 @@
-﻿using Supermarket.ViewModels.PageViewModels;
-using Supermarket.Views.PageViews;
-using Wpf.Ui;
+﻿using Supermarket.Views.PageViews;
 
 namespace Supermarket.ViewModels.WindowViewModels;
 
@@ -11,7 +9,7 @@ public class MainWindowViewModel : BaseViewModel
     public object? CurrentPage
     {
         get => _currentPage;
-        set
+        private set
         {
             _currentPage = value;
             OnPropertyChanged();

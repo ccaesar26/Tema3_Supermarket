@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Documents;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.DataAccessLayer;
 using Supermarket.Models.DataTransferLayer;
-using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.BusinessLogicLayer;
 

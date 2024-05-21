@@ -1,11 +1,6 @@
-﻿using Wpf.Ui.Controls;
+﻿namespace Supermarket.Views.WindowViews;
 
-namespace Supermarket.Views.WindowViews;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : FluentWindow
+public partial class MainWindow
 {
     public MainWindow()
     {

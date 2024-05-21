@@ -1,16 +1,14 @@
-﻿<Page x:Class="Supermarket.Views.PageViews.AdminPage"
+﻿<Page x:Class="Supermarket.Views.PageViews.AdminPageViews.AdminPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Supermarket.Views"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:views="clr-namespace:Supermarket.Views"
       xmlns:adminItemPageViews="clr-namespace:Supermarket.Views.AdminItemPageViews"
-      xmlns:viewModels="clr-namespace:Supermarket.ViewModels.PageViewModels"
       xmlns:pageViews="clr-namespace:Supermarket.Views.PageViews"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:adminPageViewModels="clr-namespace:Supermarket.ViewModels.PageViewModels.AdminPageViewModels"
+      xmlns:adminPageViews="clr-namespace:Supermarket.Views.PageViews.AdminPageViews"
       mc:Ignorable="d"
       Title="AdminPage">
     <Page.DataContext>
@@ -40,7 +38,7 @@
                     Content="Home" 
                     Icon="{ui:SymbolIcon Home24}"
                     TargetPageTag="Home"
-                    TargetPageType="pageViews:HomePage"/>
+                    TargetPageType="adminPageViews:HomePage"/>
                 <ui:NavigationViewItem 
                     Content="Products" 
                     Icon="{ui:SymbolIcon Box24}"
@@ -74,7 +72,7 @@
                 <ui:NavigationViewItem 
                     Content="Reports" 
                     Icon="{ui:SymbolIcon TaskListSquareLtr24}"
-                    TargetPageType="pageViews:ReportsPage"/>
+                    TargetPageType="adminPageViews:ReportsPage"/>
                 <ui:NavigationViewItem 
                     Content="Log out" 
                     Command="{Binding LogOutCommand}"

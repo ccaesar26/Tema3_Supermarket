@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using Supermarket.ViewModels.Commands;
-using Supermarket.Views.PageViews.CashierPageViews;
 using Wpf.Ui.Controls;
 
 namespace Supermarket.ViewModels.PageViewModels.CashierPageViewModels;

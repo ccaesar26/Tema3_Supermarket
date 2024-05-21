@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
+﻿namespace Supermarket.Views.AdminItemPageViews;
 
-namespace Supermarket.Views.AdminItemPageViews;
-
-public partial class OfferPage : Page
+public partial class OfferPage
 {
     public OfferPage()
     {

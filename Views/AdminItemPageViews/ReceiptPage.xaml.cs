@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
+﻿namespace Supermarket.Views.AdminItemPageViews;
 
-namespace Supermarket.Views.AdminItemPageViews;
-
-public partial class ReceiptPage : Page
+public partial class ReceiptPage
 {
     public ReceiptPage()
     {

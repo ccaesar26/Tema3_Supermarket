@@ -37,7 +37,7 @@ public class ProducerEditPageViewModel : BaseViewModel
         }
     }
 
-    private bool _nameHasError = false;
+    private bool _nameHasError;
     public bool NameHasError
     {
         get => _nameHasError;
@@ -48,7 +48,7 @@ public class ProducerEditPageViewModel : BaseViewModel
         }
     }
     
-    private bool _originCountryHasError = false;
+    private bool _originCountryHasError;
     public bool OriginCountryHasError
     {
         get => _originCountryHasError;
@@ -59,7 +59,7 @@ public class ProducerEditPageViewModel : BaseViewModel
         }
     }
     
-    private string? _initialName;
+    private readonly string? _initialName;
     public ProducerEditPageViewModel()
     {
         Producer = new ProducerViewModel();

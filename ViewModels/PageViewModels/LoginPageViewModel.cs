@@ -3,8 +3,8 @@ using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Services;
-using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.PageViews;
+using Supermarket.Views.PageViews.AdminPageViews;
 using Supermarket.Views.PageViews.CashierPageViews;
 using Wpf.Ui.Input;
 

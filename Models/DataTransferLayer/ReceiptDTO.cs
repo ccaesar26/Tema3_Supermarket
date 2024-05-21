@@ -1,13 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.DataTransferLayer;
 
 public class ReceiptDTO
 {
     public int? Id { get; init; }
-    public UserDTO? Cashier { get; set; }
-    public string? IssueDate { get; set; }
-    public float? AmountReceived { get; set; }
-    public ObservableCollection<ReceiptItemDTO>? Items { get; set; }
+    public UserDTO? Cashier { get; init; }
+    public string? IssueDate { get; init; }
+    public float? AmountReceived { get; init; }
+    public ObservableCollection<ReceiptItemDTO>? Items { get; init; }
 }

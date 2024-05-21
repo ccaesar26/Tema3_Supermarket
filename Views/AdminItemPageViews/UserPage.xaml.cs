@@ -1,8 +1,6 @@
-﻿using System.Windows.Controls;
+﻿namespace Supermarket.Views.AdminItemPageViews;
 
-namespace Supermarket.Views.AdminItemPageViews;
-
-public partial class UserPage : Page
+public partial class UserPage
 {
     public UserPage()
     {

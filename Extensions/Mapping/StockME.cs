@@ -1,6 +1,4 @@
 ﻿using System.Globalization;
-using System.Runtime.Serialization;
-using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
@@ -29,7 +27,7 @@ public static class StockME
         return new StockDTO
         {
             Id = stockViewModel.Id,
-            Product = stockViewModel.Product?.ToDTO(),
+            Product = stockViewModel.Product.ToDTO(),
             Quantity = stockViewModel.Quantity,
             Unit = stockViewModel.Unit,
             SupplyDate = stockViewModel.SupplyDate,
@@ -65,7 +63,7 @@ public static class StockME
         return new StockViewModel
         {
             Id = stockDTO.Id ?? 0,
-            Product = stockDTO.Product?.ToViewModel(),
+            Product = stockDTO.Product?.ToViewModel() ?? new ProductViewModel(),
             Quantity = stockDTO.Quantity ?? 0,
             Unit = stockDTO.Unit ?? "",
             SupplyDate = stockDTO.SupplyDate ?? "",

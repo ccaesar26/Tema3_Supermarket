@@ -70,7 +70,7 @@ public class CategoryEditPageViewModel : BaseViewModel
         private set => OnPropertyChanged();
     }
 
-    private string? _initialName;
+    private readonly string? _initialName;
     public CategoryEditPageViewModel()
     {
         Category = new CategoryViewModel();
@@ -131,7 +131,7 @@ public class CategoryEditPageViewModel : BaseViewModel
             page?.NavigationService?.Navigate(new CategoryPage());
         });
         
-        BrowseForImageCommand = new RelayCommand<object>(o =>
+        BrowseForImageCommand = new RelayCommand<object>(_ =>
         {
             var dialog = new OpenFileDialog
             {

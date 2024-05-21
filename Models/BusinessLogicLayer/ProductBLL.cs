@@ -2,7 +2,6 @@
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.DataAccessLayer;
 using Supermarket.Models.DataTransferLayer;
-using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.BusinessLogicLayer;
 

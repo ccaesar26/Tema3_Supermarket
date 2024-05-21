@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Supermarket.Models.EntityLayer.Enums;
 
 namespace Supermarket.Models.EntityLayer;
@@ -25,5 +23,5 @@ public sealed class User
     [DefaultValue(1)]
     public bool? IsActive { get; set; }
     
-    public ICollection<Receipt?>? Receipts { get; set; }
+    public ICollection<Receipt?>? Receipts { get; init; }
 }

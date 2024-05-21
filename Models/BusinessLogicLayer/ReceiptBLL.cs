@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Collections.ObjectModel;
-using Microsoft.IdentityModel.Abstractions;
+﻿using System.Collections.ObjectModel;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.DataAccessLayer;
 using Supermarket.Models.DataTransferLayer;

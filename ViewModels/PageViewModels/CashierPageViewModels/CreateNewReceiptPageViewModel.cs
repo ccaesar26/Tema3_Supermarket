@@ -2,11 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Azure;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
-using Supermarket.Models.EntityLayer;
 using Supermarket.Services;
 using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
@@ -73,7 +71,7 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
     public ResultItemViewModel ResultedItem
     {
         get => _resultedItem ?? new ResultItemViewModel();
-        set
+        private set
         {
             _resultedItem = value;
             OnPropertyChanged();
@@ -85,7 +83,7 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
     public ICommand? SaveCommand { get; private set; }
 
     
-    public ICommand? CancelCommand { get; private set; } = new RelayCommand<object>(obj =>
+    public ICommand? CancelCommand { get; private set; } = new RelayCommand<object>(_ =>
     {
         NavigationView?.Navigate("Home");
     });
@@ -125,7 +123,7 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         );
         
         SuggestionChosenCommand = new RelayCommand<object>(OnSuggestionChosen);
-        AddItemCommand = new RelayCommand<object>(o => AddItemToReceipt());
+        AddItemCommand = new RelayCommand<object>(_ => AddItemToReceipt());
         SaveCommand = new RelayCommand<object>(SaveReceipt);
         
         Receipt.ReceiptItems = [];
@@ -167,11 +165,6 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
     private void SaveReceipt(object obj)
     {
         if (Receipt.ReceiptItems.Count == 0)
-        {
-            return;
-        }
-        
-        if (obj is not Page page)
         {
             return;
         }

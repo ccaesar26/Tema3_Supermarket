@@ -1,11 +1,10 @@
-﻿using System.Windows.Controls;
-using Supermarket.ViewModels.ObjectViewModels;
+﻿using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.ViewModels.PageViewModels.CashierPageViewModels;
 using Wpf.Ui.Controls;
 
 namespace Supermarket.Views.PageViews.CashierPageViews;
 
-public partial class CreateNewReceiptPage : Page
+public partial class CreateNewReceiptPage
 {
     public CreateNewReceiptPage()
     {

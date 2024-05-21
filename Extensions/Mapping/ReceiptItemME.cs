@@ -1,5 +1,4 @@
-﻿using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.Models.DataTransferLayer;
+﻿using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
 using Supermarket.ViewModels.ObjectViewModels;
@@ -23,7 +22,7 @@ public static class ReceiptItemME
     {
         return new ReceiptItemDTO
         {
-            Product = receiptItemViewModel.Product?.ToDTO() ?? new ProductDTO(),
+            Product = receiptItemViewModel.Product.ToDTO(),
             Quantity = receiptItemViewModel.Quantity,
             Unit = receiptItemViewModel.Unit,
             Subtotal = receiptItemViewModel.Subtotal

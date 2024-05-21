@@ -1,9 +1,6 @@
-﻿using System.Windows.Controls;
-using Supermarket.Models.DataTransferLayer;
+﻿namespace Supermarket.Views.AdminItemEditPages;
 
-namespace Supermarket.Views.AdminItemEditPages;
-
-public partial class StockEditPage : Page
+public partial class StockEditPage
 {
     public StockEditPage()
     {

@@ -23,8 +23,6 @@ public static class ReceiptME
     
     public static ReceiptDTO ToDTO(this ReceiptViewModel receiptViewModel)
     {
-        var items = new ObservableCollection<ReceiptItemDTO>(receiptViewModel.ReceiptItems.Select(
-            item => item.ToDTO()));
         var receipt = new ReceiptDTO
         {
             Id = receiptViewModel.Id,

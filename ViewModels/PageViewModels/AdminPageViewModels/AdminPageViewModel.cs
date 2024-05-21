@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Supermarket.ViewModels.Commands;
 using Supermarket.Views.PageViews;
+using Supermarket.Views.PageViews.AdminPageViews;
 
 namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels;
 

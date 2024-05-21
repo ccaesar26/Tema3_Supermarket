@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Supermarket.Models.EntityLayer;
 public sealed class Category
@@ -19,5 +17,5 @@ public sealed class Category
     [DefaultValue(true)] 
     public bool? IsActive { get; set; }
     
-    public ICollection<Product?>? Products { private get; set; }
+    public ICollection<Product?>? Products { get; init; }
 }
