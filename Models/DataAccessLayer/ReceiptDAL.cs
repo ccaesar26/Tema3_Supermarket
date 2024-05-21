@@ -1,7 +1,5 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
-using Supermarket.Extensions.Mapping;
-using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataAccessLayer.Helpers;
 using Supermarket.Models.EntityLayer;
 
@@ -95,9 +93,10 @@ public static class ReceiptDAL
         }
     }
     
-    public static void InsertReceipt(Receipt receipt)
+    public static int InsertReceipt(Receipt receipt)
     {
         var connection = DALHelper.Connection;
+        var id = -1;
         try
         {
             var command = new SqlCommand("spReceiptInsert", connection)
@@ -108,10 +107,18 @@ public static class ReceiptDAL
             command.Parameters.AddWithValue("@UserId", receipt.UserId);
             command.Parameters.AddWithValue("@IssueDate", receipt.IssueDate);
             command.Parameters.AddWithValue("@AmountReceived", receipt.AmountReceived);
+            
+            var receiptIdParam = new SqlParameter("@ReceiptId", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+            command.Parameters.Add(receiptIdParam);
 
             connection.Open();
 
             command.ExecuteNonQuery();
+            
+            id = (int)receiptIdParam.Value;
         }
         catch (Exception e)
         {
@@ -121,6 +128,8 @@ public static class ReceiptDAL
         {
             connection.Close();
         }
+
+        return id;
     }
 
     public static void UpdateReceipt(Receipt receipt)

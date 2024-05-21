@@ -39,9 +39,8 @@ public static class StockBLL
         ArgumentNullException.ThrowIfNull(stockDTO.Unit);
         ArgumentNullException.ThrowIfNull(stockDTO.SupplyDate);
         ArgumentNullException.ThrowIfNull(stockDTO.PurchasePrice);
-
-        StockDAL.UpdateStock(stockDTO.ToEntity());
-        return true;
+        
+        return StockDAL.UpdateStock(stockDTO.ToEntity());
     }
     
     public static bool DeleteStock(StockDTO stockDTO)
@@ -49,7 +48,7 @@ public static class StockBLL
         ArgumentNullException.ThrowIfNull(stockDTO);
         ArgumentNullException.ThrowIfNull(stockDTO.Id);
 
-        StockDAL.DeleteStock(stockDTO.ToEntity());
-        return true;
+        
+        return StockDAL.DeleteStock(stockDTO.ToEntity());
     }
 }

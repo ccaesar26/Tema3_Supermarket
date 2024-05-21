@@ -241,6 +241,8 @@
       <Resource Include="Assets\Images\home_graphic.png" />
       <None Remove="Assets\Images\home_page.png" />
       <Resource Include="Assets\Images\home_page.png" />
+      <None Remove="Assets\Images\admin_page.png" />
+      <Resource Include="Assets\Images\admin_page.png" />
     </ItemGroup>
 
     <ItemGroup>

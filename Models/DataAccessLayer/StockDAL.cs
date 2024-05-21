@@ -147,10 +147,13 @@ public static class StockDAL
                 CommandType = CommandType.StoredProcedure
             };
             command.Parameters.AddWithValue("@StockId", stock.StockId);
+            command.Parameters.AddWithValue("@ProductId", stock.ProductId);
             command.Parameters.AddWithValue("@Quantity", stock.Quantity);
             command.Parameters.AddWithValue("@Unit", stock.Unit);
             command.Parameters.AddWithValue("@SupplyDate", stock.SupplyDate);
-            command.Parameters.AddWithValue("@ExpiryDate", stock.ExpiryDate);
+            command.Parameters.AddWithValue("@ExpiryDate", stock.ExpiryDate == null
+                ? DBNull.Value
+                : stock.ExpiryDate);
             command.Parameters.AddWithValue("@PurchasePrice", stock.PurchasePrice);
             
             connection.Open();

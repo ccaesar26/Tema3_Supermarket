@@ -40,4 +40,21 @@ public static class ReceiptItemME
             Subtotal = receiptItemDTO.Subtotal
         };
     }
+    
+    public static ProductReceipt ToEntity(this ReceiptItemDTO receiptItemDTO, int receiptId)
+    {
+        return new ProductReceipt
+        {
+            ReceiptId = receiptId,
+            ProductId = receiptItemDTO.Product?.Id 
+                        ?? throw new ArgumentNullException(nameof(receiptItemDTO.Product.Id)),
+            Quantity = receiptItemDTO.Quantity 
+                       ?? throw new ArgumentNullException(nameof(receiptItemDTO.Quantity)),
+            Unit = Enum.Parse<EUnit>(receiptItemDTO.Unit 
+                                     ?? throw new ArgumentNullException(nameof(receiptItemDTO.Unit))),
+            Subtotal = (decimal?) receiptItemDTO.Subtotal 
+                       ?? throw new ArgumentNullException(nameof(receiptItemDTO.Subtotal)),
+            Product = receiptItemDTO.Product?.ToEntity()
+        };
+    }
 }

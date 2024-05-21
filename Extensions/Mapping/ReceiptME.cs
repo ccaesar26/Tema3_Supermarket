@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.ViewModels.ObjectViewModels;
@@ -22,15 +23,31 @@ public static class ReceiptME
     
     public static ReceiptDTO ToDTO(this ReceiptViewModel receiptViewModel)
     {
-        return new ReceiptDTO
+        var items = new ObservableCollection<ReceiptItemDTO>(receiptViewModel.ReceiptItems.Select(
+            item => item.ToDTO()));
+        var receipt = new ReceiptDTO
         {
             Id = receiptViewModel.Id,
-            Cashier = receiptViewModel.Cashier?.ToDTO(),
+            Cashier = receiptViewModel.Cashier.ToDTO(),
             IssueDate = receiptViewModel.IssueDate,
             AmountReceived = receiptViewModel.AmountReceived,
             Items = new ObservableCollection<ReceiptItemDTO>(receiptViewModel.ReceiptItems.Select(
                 item => item.ToDTO()))
         };
+        
+        foreach (var item in receipt.Items)
+        {
+            var stock = StockBLL.GetStocks().FirstOrDefault(
+                stock => stock.Product?.Id == item.Product?.Id);
+            
+            if (stock == null)
+                continue;
+            
+            stock.Quantity -= item.Quantity;
+            StockBLL.EditStock(stock);
+        }
+
+        return receipt;
     }
     
     public static ReceiptViewModel ToViewModel(this ReceiptDTO receiptDTO)

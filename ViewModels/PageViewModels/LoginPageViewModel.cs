@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
+using Supermarket.Models.DataTransferLayer;
 using Supermarket.Services;
 using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.PageViews;
@@ -66,7 +67,7 @@ public class LoginPageViewModel: BaseViewModel
         }
         else
         {
-            var user = UserBLL.GetUsers().FirstOrDefault()?.ToViewModel() ?? new UserViewModel();
+            var user = (UserBLL.GetUsers().FirstOrDefault(u => u.Username == Username) ?? new UserDTO()).ToViewModel();
             UserSession.Instance.SetUser(user);
             page.NavigationService?.Navigate(new CashierPage());
         }

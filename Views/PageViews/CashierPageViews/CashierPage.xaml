@@ -38,7 +38,7 @@
                 <ui:NavigationViewItem
                     Icon="{ui:SymbolIcon ReceiptAdd24}"
                     Content="Create New Receipt"
-                    Command="{Binding SetCashierCommand}"
+                    TargetPageTag="CreateNewReceipt"
                     TargetPageType="cashierPageViews:CreateNewReceiptPage"/>
                 </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>

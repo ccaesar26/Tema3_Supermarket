@@ -72,16 +72,66 @@
                             ItemsSource="{Binding OriginalItems}"
                             SuggestionChosen="AutoSuggestBox_OnSuggestionChosen"
                             PlaceholderText="Search"
-                            Margin="0 0 8 0">
+                            Margin="0 0 16 0">
                             <ui:AutoSuggestBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
-                                        <ui:TextBlock Text="{Binding Stock.Product.Name}"/>
-                                        <ui:TextBlock Text="{Binding Stock.Product.Barcode}"/>
-                                        <ui:TextBlock Text="{Binding Stock.Product.Producer.Name}"/>
-                                        <ui:TextBlock Text="{Binding Stock.Product.Category.Name}"/>
-                                        <ui:TextBlock Text="{Binding Stock.ExpiryDate}"/>
-                                    </StackPanel>
+                                    <ui:Card
+                                        Margin="-14 -6 -2 -6">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Grid.RowSpan="2"
+                                                    Margin="0 0 16 0">
+                                                <ui:Image
+                                                    Width="56"
+                                                    Height="56"
+                                                    Source="{Binding Stock.Product.Image}"
+                                                    Margin="16 0 0 0"/>
+                                                <ui:Image
+                                                    Width="24"
+                                                    Height="24"
+                                                    Source="{Binding Stock.Product.Category.Image}"
+                                                    HorizontalAlignment="Left"
+                                                    Margin=" 0 -16 0 0"/>
+                                            </StackPanel>
+                                            <ui:TextBlock 
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                FontTypography="Subtitle"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Stock.Product.Name}"/>
+                                            <ui:TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                FontWeight="Bold"
+                                                FontSize="16"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Stock.Product.Producer.Name}"/>
+                                            <ui:TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                FontTypography="BodyStrong"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Stock.Product.Barcode}"/>
+                                            <ui:TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Stock.ExpiryDate}"/>
+                                        </Grid>
+                                    </ui:Card>
                                 </DataTemplate>
                             </ui:AutoSuggestBox.ItemTemplate>
                         </ui:AutoSuggestBox>
@@ -102,9 +152,12 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -112,61 +165,114 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <ui:Image
+                            <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                HorizontalAlignment="Center"
-                                Source="{Binding ResultedItem.Stock.Product.Image}"/>
+                                Grid.RowSpan="8"
+                                VerticalAlignment="Center"
+                                Margin="0 0 8 0">
+                                <ui:Card
+                                    Padding="32">
+                                    <ui:Image
+                                        Source="{Binding ResultedItem.Stock.Product.Image}"/>
+                                </ui:Card>
+                                <ui:Card
+                                    Margin="16 -32 0 0"
+                                    Width="64"
+                                    Padding="12"
+                                    Background="{ui:ThemeResource AccentTextFillColorSecondaryBrush}"
+                                    HorizontalAlignment="Left">
+                                <ui:Image
+                                    Source="{Binding ResultedItem.Stock.Product.Category.Image}"/>
+                                </ui:Card>
+                            </StackPanel>
+                            
+                            <ui:TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding ResultedItem.Stock.Product.Name}"
+                                FontTypography="TitleLarge"
+                                Margin="8 8 0 8"/>
                             <ui:TextBlock
                                 Grid.Row="1"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="2"
-                                Text="{Binding ResultedItem.Stock.Product.Name}"
-                                FontTypography="Title"/>
+                                Grid.Column="1"
+                                Text="{Binding ResultedItem.Stock.Product.Producer.Name}"
+                                FontTypography="Title"
+                                Margin="8 8 0 8"/>
                             <ui:TextBlock
                                 Grid.Row="2"
+                                Grid.Column="1"
+                                Text="{Binding ResultedItem.Stock.Product.Barcode}"
+                                FontTypography="BodyStrong"
+                                Margin="8 8 0 8"/>
+                            <ui:TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Text="{Binding ResultedItem.Stock.ExpiryDate}"
+                                FontTypography="Body"
+                                Margin="8 0 0 0"/>
+                            <StackPanel
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                Margin="8 8 0 8">
+                                <ui:TextBlock
+                                    HorizontalAlignment="Right"
+                                    Text="Price"/>
+                                <ui:TextBlock
+                                    Text="{Binding ResultedItem.Stock.SellingPrice}"
+                                    TextAlignment="Right"
+                                    FontTypography="Title"/>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                Margin="8 8 0 8">
+                                <ui:TextBlock
+                                    HorizontalAlignment="Right"
+                                    Text="Discount"/>
+                                <ui:TextBlock
+                                    Text="{Binding ResultedItem.Offer.DiscountPercentage, StringFormat={}{0}%}"
+                                    TextAlignment="Right"
+                                    FontTypography="Title"/>
+                            </StackPanel>
+                            <ui:TextBlock
+                                Grid.Row="6"
+                                Grid.Column="1"
+                                Text="{Binding ResultedItem.TotalPrice, StringFormat={}{0}€}"
+                                TextAlignment="Right"
+                                FontTypography="Display"
+                                Margin="8 8 0 8"/>
+                            <Grid
+                                Grid.Row="7"
+                                Column="1"
+                                Margin="8 8 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding ResultedItem.Stock.Unit, StringFormat='Quantity (in {0})'}"
+                                    FontTypography="Body"/>
+                                <ui:NumberBox
+                                    Grid.Column="1"
+                                    Value="{Binding ResultedItem.Quantity}"
+                                    Minimum="1"
+                                    Maximum="{Binding ResultedItem.Stock.Quantity}"
+                                    Width="132"/>
+                            </Grid>
+                            <ui:Button
+                                Grid.Row="8"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Text="{Binding ResultedItem.Stock.Product.Producer.Name}"
-                                FontTypography="Subtitle"/>
-                            <ui:TextBlock
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                Text="{Binding ResultedItem.Stock.ExpiryDate}"
-                                FontTypography="Body"/>
-                            <ui:TextBlock
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                Text="{Binding ResultedItem.Stock.SellingPrice}"
-                                TextAlignment="Right"
-                                FontTypography="BodyStrong"/>
-                            <ui:TextBlock
-                                Grid.Row="4"
-                                Grid.Column="0"
-                                Text="{Binding ResultedItem.Stock.Unit}"
-                                FontTypography="Body"/>
-                            <ui:NumberBox
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                Value="{Binding ResultedItem.Quantity}"
-                                Minimum="1"
-                                Maximum="{Binding ResultedItem.Stock.Quantity}"
-                                Width="144"/>
-                            <ui:Image
-                                Grid.Row="5"
-                                Grid.Column="0"
-                                HorizontalAlignment="Center"
-                                Source="{Binding ResultedItem.Stock.Product.Category.Image}"
-                                Width="64"
-                                Height="64"/>
-                            <ui:Button
-                                Grid.Row="5"
-                                Grid.Column="1"
+                                Margin="0 16 0 0"
                                 Content="Add"
                                 Command="{Binding AddItemCommand}"
                                 Icon="{ui:SymbolIcon Add24}"
-                                Width="144"/>
+                                HorizontalAlignment="Stretch"/>
                         </Grid>
                     </ui:Card>
                 </Grid>
@@ -231,8 +337,7 @@
                         Margin="0 8">
                         <ItemsControl
                             ItemsSource="{Binding Receipt.ReceiptItems}"
-                            VerticalAlignment="Stretch"
-                            Margin="0 8">
+                            VerticalAlignment="Stretch">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <ui:Card>
@@ -266,7 +371,7 @@
                                                     FontTypography="Body"/>
                                                 <ui:TextBlock
                                                     Text="{Binding Price}"
-                                                    FontTypography="Body"
+                                                    FontTypography="BodyStrong"
                                                     Margin="0 0 16 0"/>
                                             </StackPanel>
                                             <ui:TextBlock
@@ -279,6 +384,7 @@
                                                 Grid.Row="1"
                                                 Grid.Column="2"
                                                 Text="{Binding Subtotal}"
+                                                FontTypography="BodyStrong"
                                                 TextAlignment="Right"/>
                                         </Grid>
                                     </ui:Card>
@@ -323,6 +429,7 @@
                         <ui:Button
                             Content="Save"
                             Command="{Binding SaveCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
                             Grid.Column="0"
                             Appearance="Primary"
                             HorizontalAlignment="Stretch"

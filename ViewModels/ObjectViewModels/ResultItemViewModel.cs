@@ -27,12 +27,12 @@ public class ResultItemViewModel : BaseViewModel
     private int? _quantity;
     public int Quantity
     {
-        get => _quantity ?? 0;
+        get => _quantity ?? 1;
         set
         {
             _quantity = value;
             TotalPrice = (float)Math
-                .Round(Quantity * Stock?.SellingPrice ?? 0 * (1 - Offer?.DiscountPercentage / 100f ?? 0), 2);
+                .Round(Quantity * Stock.SellingPrice * (1 - Offer.DiscountPercentage / 100f) ?? 0, 2);
             OnPropertyChanged();
         }
     }
@@ -40,8 +40,9 @@ public class ResultItemViewModel : BaseViewModel
     private float? _totalPrice;
     public float TotalPrice
     {
-        get => _totalPrice ?? 0;
-        set
+        get => _totalPrice ?? (float)Math
+            .Round(Quantity * Stock.SellingPrice * (1 - Offer.DiscountPercentage / 100f) ?? 0, 2);
+        private set
         {
             _totalPrice = value;
             OnPropertyChanged();

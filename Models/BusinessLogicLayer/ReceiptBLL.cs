@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using Microsoft.IdentityModel.Abstractions;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.DataAccessLayer;
 using Supermarket.Models.DataTransferLayer;
+using Supermarket.Models.EntityLayer;
 
 namespace Supermarket.Models.BusinessLogicLayer;
 
@@ -25,9 +27,11 @@ public static class ReceiptBLL
         ArgumentNullException.ThrowIfNull(receiptDTO.Cashier);
         ArgumentNullException.ThrowIfNull(receiptDTO.IssueDate);
         ArgumentNullException.ThrowIfNull(receiptDTO.AmountReceived);
-
-        ReceiptDAL.InsertReceipt(receiptDTO.ToEntity());
-        return true;
+        
+        var receiptId = ReceiptDAL.InsertReceipt(receiptDTO.ToEntity());
+        
+        return ProductReceiptDAL.InsertProductReceipt(receiptDTO.Items?
+            .Select(s => s.ToEntity(receiptId)).FirstOrDefault() ?? new ProductReceipt());
     }
     
     public static bool EditReceipt(ReceiptDTO receiptDTO)

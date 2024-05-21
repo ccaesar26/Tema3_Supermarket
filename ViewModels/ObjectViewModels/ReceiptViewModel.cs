@@ -51,7 +51,7 @@ public class ReceiptViewModel : BaseViewModel
     private float? _amountReceived;
     public float AmountReceived
     {
-        get => _amountReceived ?? 0;
+        get => (float) Math.Round(_amountReceived ?? 0, 2);
         set
         {
             _amountReceived = value;

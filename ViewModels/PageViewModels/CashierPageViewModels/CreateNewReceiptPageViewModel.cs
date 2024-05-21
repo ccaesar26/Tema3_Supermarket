@@ -6,15 +6,19 @@ using Azure;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
+using Supermarket.Models.EntityLayer;
 using Supermarket.Services;
 using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.PageViews.CashierPageViews;
+using Wpf.Ui.Controls;
 
 namespace Supermarket.ViewModels.PageViewModels.CashierPageViewModels;
 
 public class CreateNewReceiptPageViewModel : BaseViewModel
 {
+    public static NavigationView? NavigationView { get; set; }
+    
     private readonly ReceiptViewModel? _receipt;
     public ReceiptViewModel Receipt
     {
@@ -76,17 +80,14 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         }
     }
     
-    public ICommand? AddItemCommand { get; private set; } = new RelayCommand<object>(obj =>
-    {
-    });
+    public ICommand? AddItemCommand { get; private set; }
     
-    public ICommand? SaveCommand { get; private set; } = new RelayCommand<object>(obj =>
-    {
-    });
+    public ICommand? SaveCommand { get; private set; }
 
     
     public ICommand? CancelCommand { get; private set; } = new RelayCommand<object>(obj =>
     {
+        NavigationView?.Navigate("Home");
     });
 
     public ICommand SuggestionChosenCommand { get; set; }
@@ -124,6 +125,10 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         );
         
         SuggestionChosenCommand = new RelayCommand<object>(OnSuggestionChosen);
+        AddItemCommand = new RelayCommand<object>(o => AddItemToReceipt());
+        SaveCommand = new RelayCommand<object>(SaveReceipt);
+        
+        Receipt.ReceiptItems = [];
     }
     
     private void OnSuggestionChosen(object obj)
@@ -136,5 +141,43 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         ResultedItem = selectedProduct;
         
         ResultVisibility = Visibility.Visible;
+    }
+    
+    private void AddItemToReceipt()
+    {
+        if (ResultedItem.Stock.Id == null)
+        {
+            return;
+        }
+        
+        Receipt.ReceiptItems.Add(new ReceiptItemViewModel
+        {
+            Product = ResultedItem.Stock.Product,
+            Quantity = ResultedItem.Quantity,
+            Unit = ResultedItem.Stock.Unit,
+            Offer = ResultedItem.Offer,
+            Subtotal = ResultedItem.TotalPrice
+        });
+        
+        Receipt.AmountReceived += ResultedItem.TotalPrice;
+        
+        ResultVisibility = Visibility.Collapsed;
+    }
+    
+    private void SaveReceipt(object obj)
+    {
+        if (Receipt.ReceiptItems.Count == 0)
+        {
+            return;
+        }
+        
+        if (obj is not Page page)
+        {
+            return;
+        }
+        
+        ReceiptBLL.AddReceipt(Receipt.ToDTO());
+        
+        NavigationView?.Navigate("Home");
     }
 }

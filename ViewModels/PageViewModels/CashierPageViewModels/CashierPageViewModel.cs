@@ -26,6 +26,9 @@ public class CashierPageViewModel : BaseViewModel
         }
         
         var navigationView = page.CashierNavigationView;
+
+        CashierHomePageViewModel.NavigationView = navigationView;
+        CreateNewReceiptPageViewModel.NavigationView = navigationView;
         
         navigationView.Navigate("Home");
     });

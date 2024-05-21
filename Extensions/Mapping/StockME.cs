@@ -49,11 +49,11 @@ public static class StockME
                        ?? throw new ArgumentNullException(nameof(stockDTO.Quantity)),
             Unit = Enum.Parse<EUnit>(stockDTO.Unit 
                                      ?? throw new ArgumentNullException(nameof(stockDTO.Unit))),
-            SupplyDate = DateTime.Parse(stockDTO.SupplyDate 
-                                        ?? throw new ArgumentNullException(nameof(stockDTO.SupplyDate)), new CultureInfo("en-US")),
+            SupplyDate = DateTime.ParseExact(stockDTO.SupplyDate 
+                                        ?? throw new ArgumentNullException(nameof(stockDTO.SupplyDate)), "d", new CultureInfo("ro-RO")),
             ExpiryDate = stockDTO.ExpiryDate is null or ""
                          ? null 
-                         : DateTime.Parse(stockDTO.ExpiryDate, new CultureInfo("en-US")),
+                         : DateTime.ParseExact(stockDTO.ExpiryDate, "d", new CultureInfo("ro-RO")),
             PurchasePrice = (decimal?) stockDTO.PurchasePrice 
                             ?? throw new ArgumentNullException(nameof(stockDTO.PurchasePrice)),
             Product = stockDTO.Product?.ToEntity()
