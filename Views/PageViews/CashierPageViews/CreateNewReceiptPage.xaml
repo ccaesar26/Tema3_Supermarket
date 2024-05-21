@@ -69,10 +69,21 @@
                         <ui:AutoSuggestBox
                             Grid.Column="0"
                             OriginalItemsSource="{Binding OriginalItems}"
-                            
+                            ItemsSource="{Binding OriginalItems}"
                             SuggestionChosen="AutoSuggestBox_OnSuggestionChosen"
                             PlaceholderText="Search"
-                            Margin="0 0 8 0"/>
+                            Margin="0 0 8 0">
+                            <ui:AutoSuggestBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ui:TextBlock Text="{Binding Name}"/>
+                                        <ui:TextBlock Text="{Binding Barcode}"/>
+                                        <ui:TextBlock Text="{Binding Producer.Name}"/>
+                                        <ui:TextBlock Text="{Binding Category.Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ui:AutoSuggestBox.ItemTemplate>
+                        </ui:AutoSuggestBox>
                         <ComboBox
                             Grid.Column="1"
                             ItemsSource="{Binding Filters}"

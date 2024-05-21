@@ -34,7 +34,7 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         
         page.NavigationService?.Navigate(new CreateNewReceiptPage());
     });
-    public ObservableCollection<string> OriginalItems { get; set; }
+    public ObservableCollection<ProductViewModel> OriginalItems { get; set; }
     public ObservableCollection<string> Filters { get; } =
     [
         "Product Name",
@@ -51,6 +51,15 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         set
         {
             _selectedFilter = value;
+            ProductViewModel.ToStringFunc = value switch
+            {
+                "Product Name" => p => p.Name,
+                "Barcode" => p => p.Barcode,
+                "Category" => p => p.Category.Name,
+                "Producer" => p => p.Producer.Name,
+                "Expiration Date" => p => "",
+                _ => ProductViewModel.ToStringFunc
+            };
             OnPropertyChanged();
         }
     }
@@ -89,21 +98,26 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
             Cashier = UserSession.Instance.LoggedInUser ?? new UserViewModel()
         };
         
-        OriginalItems = new ObservableCollection<string>(StockBLL.GetStocks()
-            .Select(s => s.Product?.Name ?? ""));
+        OriginalItems = new ObservableCollection<ProductViewModel>(StockBLL.GetStocks()
+            .GroupBy(s => s.Product?.Name)
+            .Select(s => (s.OrderBy(p => p.ExpiryDate).First().Product 
+                          ?? new ProductDTO()).ToViewModel()));
         
         SuggestionChosenCommand = new RelayCommand<object>(OnSuggestionChosen);
     }
     
     private void OnSuggestionChosen(object obj)
     {
-        if (obj is not string selectedText)
+        if (obj is not ProductViewModel selectedProduct)
         {
             return;
         }
 
+        // select the near expiry date stock
         var result = (StockBLL.GetStocks()
-            .FirstOrDefault(s => s.Product?.Name == selectedText) ?? new StockDTO()).ToViewModel();
+                .Where(s => s.Product?.Name == selectedProduct.Name)
+                .MinBy(s => s.ExpiryDate) ?? new StockDTO())
+            .ToViewModel();
         
         ResultedItem = new ResultItemViewModel()
         {
