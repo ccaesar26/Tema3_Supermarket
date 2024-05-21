@@ -69,8 +69,8 @@
                         <ui:AutoSuggestBox
                             Grid.Column="0"
                             OriginalItemsSource="{Binding OriginalItems}"
+                            
                             SuggestionChosen="AutoSuggestBox_OnSuggestionChosen"
-                            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                             PlaceholderText="Search"
                             Margin="0 0 8 0"/>
                         <ComboBox
@@ -105,47 +105,47 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Center"
-                                Source="{Binding ResultedItem.Product.Image}"/>
+                                Source="{Binding ResultedItem.Stock.Product.Image}"/>
                             <ui:TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Text="{Binding ResultedItem.Product.Name}"
+                                Text="{Binding ResultedItem.Stock.Product.Name}"
                                 FontTypography="Title"/>
                             <ui:TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Text="{Binding ResultedItem.Product.Producer.Name}"
+                                Text="{Binding ResultedItem.Stock.Product.Producer.Name}"
                                 FontTypography="Subtitle"/>
                             <ui:TextBlock
                                 Grid.Row="3"
                                 Grid.Column="0"
-                                Text="{Binding ExpirationDate}"
+                                Text="{Binding ResultedItem.Stock.ExpiryDate}"
                                 FontTypography="Body"/>
                             <ui:TextBlock
                                 Grid.Row="3"
                                 Grid.Column="1"
-                                Text="{Binding ResultedItem.Price}"
+                                Text="{Binding ResultedItem.Stock.SellingPrice}"
                                 TextAlignment="Right"
                                 FontTypography="BodyStrong"/>
                             <ui:TextBlock
                                 Grid.Row="4"
                                 Grid.Column="0"
-                                Text="{Binding ResultedItem.Unit}"
+                                Text="{Binding ResultedItem.Stock.Unit}"
                                 FontTypography="Body"/>
                             <ui:NumberBox
                                 Grid.Row="4"
                                 Grid.Column="1"
                                 Value="{Binding ResultedItem.Quantity}"
                                 Minimum="1"
-                                Maximum="{Binding ResultedItem.Quantity}"
+                                Maximum="{Binding ResultedItem.Stock.Quantity}"
                                 Width="144"/>
                             <ui:Image
                                 Grid.Row="5"
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
-                                Source="{Binding ResultedItem.Product.Category.Image}"
+                                Source="{Binding ResultedItem.Stock.Product.Category.Image}"
                                 Width="64"
                                 Height="64"/>
                             <ui:Button
@@ -192,7 +192,7 @@
                                 Text="Cashier:"
                                 FontTypography="Body"/>
                             <ui:TextBlock
-                                Grid.Row="1"
+                                Grid.Row="0"
                                 Grid.Column="1"
                                 Text="{Binding Receipt.Cashier.Username}"
                                 TextAlignment="Right"

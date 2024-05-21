@@ -48,7 +48,7 @@ public class StockViewModel : BaseViewModel
         }
     }
     
-    public float? SellingPrice => PurchasePrice * float.Parse(ConfigurationManager.GetSetting("ProfitPercentage") ?? "1.0");
+    public float? SellingPrice => (float)Math.Round(PurchasePrice * float.Parse(ConfigurationManager.GetSetting("ProfitPercentage") ?? "1.0"), 2);
 
     private string? _supplyDate;
     public string SupplyDate

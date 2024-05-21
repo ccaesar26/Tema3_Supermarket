@@ -28,10 +28,9 @@ public static class ProductME
             Id = productViewModel.Id,
             Name = productViewModel.Name,
             Barcode = productViewModel.Barcode,
-            Category = productViewModel.Category.ToDTO(),
-            Producer = productViewModel.Producer.ToDTO(),
-            Image = productViewModel.Image == "No image found" ? null : productViewModel.Image,
-            Offer = productViewModel.Offer.ToDTO()
+            Category = productViewModel.Category?.ToDTO(),
+            Producer = productViewModel.Producer?.ToDTO(),
+            Image = productViewModel.Image == "No image found" ? null : productViewModel.Image
         };
     }
     
@@ -63,8 +62,7 @@ public static class ProductME
             Barcode = productDTO.Barcode ?? "",
             Category = productDTO.Category?.ToViewModel() ?? new CategoryViewModel(),
             Producer = productDTO.Producer?.ToViewModel() ?? new ProducerViewModel(),
-            Image = productDTO.Image ?? "",
-            Offer = productDTO.Offer?.ToViewModel() ?? new OfferViewModel()
+            Image = productDTO.Image ?? ""
         };
     }
 }

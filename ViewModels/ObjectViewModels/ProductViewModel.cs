@@ -67,15 +67,4 @@ public class ProductViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-    
-    private OfferViewModel? _offer;
-    public OfferViewModel Offer
-    {
-        get => _offer ?? new OfferViewModel();
-        set
-        {
-            _offer = value;
-            OnPropertyChanged();
-        }
-    }
 }

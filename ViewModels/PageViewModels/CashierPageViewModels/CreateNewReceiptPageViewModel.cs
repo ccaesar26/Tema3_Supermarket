@@ -34,8 +34,6 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         
         page.NavigationService?.Navigate(new CreateNewReceiptPage());
     });
-    
-    public ObservableCollection<string>? SearchResults { get; set; }
     public ObservableCollection<string> OriginalItems { get; set; }
     public ObservableCollection<string> Filters { get; } =
     [
@@ -57,19 +55,16 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         }
     }
     
-    private ReceiptItemViewModel? _resultedItem;
-    public ReceiptItemViewModel ResultedItem
+    private ResultItemViewModel? _resultedItem;
+    public ResultItemViewModel ResultedItem
     {
-        get => _resultedItem ?? new ReceiptItemViewModel();
+        get => _resultedItem ?? new ResultItemViewModel();
         set
         {
             _resultedItem = value;
             OnPropertyChanged();
         }
     }
-    
-    public DateOnly ExpirationDate => DateOnly.Parse(StockBLL.GetStocks()
-        .FirstOrDefault(s => s.Product?.Id == ResultedItem.Product.Id)?.ExpiryDate ?? "01/01/0001");
     
     public ICommand? AddItemCommand { get; private set; } = new RelayCommand<object>(obj =>
     {
@@ -83,8 +78,6 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
     public ICommand? CancelCommand { get; private set; } = new RelayCommand<object>(obj =>
     {
     });
-
-    public string? SearchText { get; set;  }
 
     public ICommand SuggestionChosenCommand { get; set; }
 
@@ -112,11 +105,9 @@ public class CreateNewReceiptPageViewModel : BaseViewModel
         var result = (StockBLL.GetStocks()
             .FirstOrDefault(s => s.Product?.Name == selectedText) ?? new StockDTO()).ToViewModel();
         
-        ResultedItem = new ReceiptItemViewModel()
+        ResultedItem = new ResultItemViewModel()
         {
-            Product = result.Product,
-            Quantity = 1,
-            Unit = result.Unit,
+            Stock = result,
             Offer = OfferBLL.GetOffers().FirstOrDefault(o => o.Product?.Id == result.Product.Id)?.ToViewModel() 
                     ?? new OfferViewModel()
         };

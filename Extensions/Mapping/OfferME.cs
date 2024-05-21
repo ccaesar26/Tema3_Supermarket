@@ -1,4 +1,5 @@
-﻿using Supermarket.Models.BusinessLogicLayer;
+﻿using System.Globalization;
+using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.Models.EntityLayer;
 using Supermarket.Models.EntityLayer.Enums;
@@ -45,9 +46,11 @@ public static class OfferME
             DiscountPercentage = offerDTO.DiscountPercentage 
                                 ?? throw new ArgumentNullException(nameof(offerDTO.DiscountPercentage)),
             StartDate = DateTime.Parse(offerDTO.StartDate 
-                                      ?? throw new ArgumentNullException(nameof(offerDTO.StartDate))),
+                                      ?? throw new ArgumentNullException(nameof(offerDTO.StartDate)), 
+                new CultureInfo("en-US")),
             EndDate = DateTime.Parse(offerDTO.EndDate 
-                                    ?? throw new ArgumentNullException(nameof(offerDTO.EndDate))),
+                                    ?? throw new ArgumentNullException(nameof(offerDTO.EndDate)), 
+                new CultureInfo("en-US")),
             Reason = Enum.Parse<EReason>(offerDTO.Reason 
                     ?? throw new ArgumentNullException(nameof(offerDTO.Reason))),
             Product = offerDTO.Product?.ToEntity()
