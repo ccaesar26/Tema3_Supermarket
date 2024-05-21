@@ -9,7 +9,7 @@ using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectEditPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectEditPageViewModels;
 
 public class CategoryEditPageViewModel : BaseViewModel
 {

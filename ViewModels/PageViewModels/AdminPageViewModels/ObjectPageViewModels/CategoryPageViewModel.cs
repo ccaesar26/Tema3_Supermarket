@@ -2,14 +2,13 @@
 using System.Windows.Input;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.Models.DataTransferLayer;
 using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
 using Wpf.Ui.Controls;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectPageViewModels;
 
 public class CategoryPageViewModel : BaseViewModel
 {

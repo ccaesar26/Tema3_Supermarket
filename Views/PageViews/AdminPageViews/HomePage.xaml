@@ -16,7 +16,7 @@
             Foreground="White"
             Margin="16 32"/>
         <ui:Image
-            Source="../../Assets/Images/home_page.png"
+            Source="/Assets/Images/home_page.png"
             MaxWidth="768"/>
     </DockPanel>
 </Page>

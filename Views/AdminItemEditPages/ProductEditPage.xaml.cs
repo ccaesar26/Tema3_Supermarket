@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using Supermarket.Models.DataTransferLayer;
 using Supermarket.ViewModels.ObjectViewModels;
-using Supermarket.ViewModels.PageViewModels.ObjectEditPageViewModels;
+using Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectEditPageViewModels;
 
 namespace Supermarket.Views.AdminItemEditPages;
 

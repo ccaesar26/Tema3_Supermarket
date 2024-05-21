@@ -62,7 +62,7 @@ public class ReceiptItemViewModel : BaseViewModel
     private float? _subtotal;
     public float Subtotal
     {
-        get => _subtotal ?? 0;
+        get => (float)Math.Round(_subtotal ?? 0);
         set
         {
             _subtotal = value;
@@ -70,5 +70,5 @@ public class ReceiptItemViewModel : BaseViewModel
         }
     }
 
-    public float Discount => Offer.DiscountPercentage * Subtotal / 100 * -1;
+    public float Discount => (float)Math.Round(Offer.DiscountPercentage * Subtotal / 100 * -1, 2);
 }

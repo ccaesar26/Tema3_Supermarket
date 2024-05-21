@@ -2,62 +2,73 @@
 using System.Windows.Input;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
-using Supermarket.Models.DataTransferLayer;
 using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
-using Wpf.Ui.Controls;
+using MessageBox = Wpf.Ui.Controls.MessageBox;
+using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectPageViewModels;
 
-public class ProductPageViewModel
+public class ProducerPageViewModel : BaseViewModel
 {
-    public ObservableCollection<ProductViewModel> Products { get; set; } 
-        = new(ProductBLL.GetProducts().Select(p => p.ToViewModel()));
-    
+    public ObservableCollection<ProducerViewModel> Producers { get; set; } 
+        = new(ProducerBLL.GetProducers().Select(p => p.ToViewModel()));
     public ICommand AddNewCommand { get; }
     public ICommand EditCommand { get; }
     public ICommand RemoveCommand { get; }
     
-    public ProductPageViewModel()
+    public ProducerPageViewModel()
     {
         AddNewCommand = new RelayCommand<object>(obj =>
         {
-            if (obj is not ProductPage currentPage)
+            if (obj is not ProducerPage currentPage)
             {
                 return;
             }
         
-            var productEditPage = new ProductEditPage();
+            var producerEditPage = new ProducerEditPage();
         
-            currentPage.NavigationService?.Navigate(productEditPage);
+            currentPage.NavigationService?.Navigate(producerEditPage);
         });
         
         EditCommand = new RelayCommand<object>(obj =>
         {
             if (obj is not object[] values) return;
 
-            if (values[0] is not ProductViewModel product || values[1] is not ProductPage currentPage)
+            if (values[0] is not ProducerViewModel producer || values[1] is not ProducerPage currentPage)
             {
                 return;
             }
         
-            var productEditPage = new ProductEditPage(product);
+            var producerEditPage = new ProducerEditPage(producer);
         
-            currentPage.NavigationService?.Navigate(productEditPage);
-            
+            currentPage.NavigationService?.Navigate(producerEditPage);
         });
+        
         RemoveCommand = new RelayCommand<object>(Remove);
     }
-    
+
     private void Remove(object? obj)
     {
-        if (obj is not ProductViewModel product)
+        if (obj is not ProducerViewModel producer)
         {
             return;
         }
         
+        if (ProductBLL.GetProducts().Any(p => p.Id == producer.Id))
+        {
+            var errDialog = new MessageBox
+            {
+                Title = "Error",
+                Content = "This producer is used in products.\nYou cannot delete it."
+            };
+            
+            errDialog.ShowDialogAsync();
+            return;
+        }
+
         var dialog = new MessageBox
         {
             Title = "Confirmation",
@@ -70,9 +81,9 @@ public class ProductPageViewModel
 
         if (result != MessageBoxResult.Primary) return;
         
-        if (ProductBLL.DeleteProduct(product.ToDTO()))
+        if (ProducerBLL.DeleteProducer(producer.ToDTO()))
         {
-            Products.Remove(product);
+            Producers.Remove(producer);
         }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Input;
 using Supermarket.Extensions.EnumExtensions;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.Models.EntityLayer.Enums;
-using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
 
-namespace Supermarket.ViewModels.PageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels;
 
 public class ReportsPageViewModel : BaseViewModel
 {

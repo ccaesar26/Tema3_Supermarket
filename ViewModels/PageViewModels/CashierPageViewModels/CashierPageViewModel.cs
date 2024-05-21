@@ -1,16 +1,16 @@
-﻿
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Supermarket.ViewModels.Commands;
+using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.PageViews;
-using Wpf.Ui;
+using Supermarket.Views.PageViews.CashierPageViews;
 
-namespace Supermarket.ViewModels.PageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.CashierPageViewModels;
 
-public class AdminPageViewModel : BaseViewModel
+public class CashierPageViewModel : BaseViewModel
 {
     public ICommand LogOutCommand { get; } = new RelayCommand<object?>(obj =>
     {
-        if (obj is not AdminPage page)
+        if (obj is not CashierPage page)
         {
             return;
         }
@@ -20,12 +20,12 @@ public class AdminPageViewModel : BaseViewModel
     
     public ICommand NavigateToHomeCommand { get; } = new RelayCommand<object?>(obj =>
     {
-        if (obj is not AdminPage page)
+        if (obj is not CashierPage page)
         {
             return;
         }
         
-        var navigationView = page.NavigationView;
+        var navigationView = page.CashierNavigationView;
         
         navigationView.Navigate("Home");
     });

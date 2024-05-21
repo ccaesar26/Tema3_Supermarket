@@ -6,69 +6,56 @@ using Supermarket.ViewModels.Commands;
 using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
-using MessageBox = Wpf.Ui.Controls.MessageBox;
-using MessageBoxResult = Wpf.Ui.Controls.MessageBoxResult;
+using Wpf.Ui.Controls;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectPageViewModels;
 
-public class ProducerPageViewModel : BaseViewModel
+public class UserPageViewModel
 {
-    public ObservableCollection<ProducerViewModel> Producers { get; set; } 
-        = new(ProducerBLL.GetProducers().Select(p => p.ToViewModel()));
+    public ObservableCollection<UserViewModel> Users { get; set; } 
+        = new(UserBLL.GetUsers().Select(u => u.ToViewModel()));
     public ICommand AddNewCommand { get; }
     public ICommand EditCommand { get; }
     public ICommand RemoveCommand { get; }
     
-    public ProducerPageViewModel()
+    public UserPageViewModel()
     {
         AddNewCommand = new RelayCommand<object>(obj =>
         {
-            if (obj is not ProducerPage currentPage)
+            if (obj is not UserPage currentPage)
             {
                 return;
             }
         
-            var producerEditPage = new ProducerEditPage();
+            var userEditPage = new UserEditPage();
         
-            currentPage.NavigationService?.Navigate(producerEditPage);
+            currentPage.NavigationService?.Navigate(userEditPage);
         });
         
         EditCommand = new RelayCommand<object>(obj =>
         {
             if (obj is not object[] values) return;
 
-            if (values[0] is not ProducerViewModel producer || values[1] is not ProducerPage currentPage)
+            if (values[0] is not UserViewModel user || values[1] is not UserPage currentPage)
             {
                 return;
             }
         
-            var producerEditPage = new ProducerEditPage(producer);
+            var userEditPage = new UserEditPage(user);
         
-            currentPage.NavigationService?.Navigate(producerEditPage);
+            currentPage.NavigationService?.Navigate(userEditPage);
         });
         
         RemoveCommand = new RelayCommand<object>(Remove);
     }
-
+    
     private void Remove(object? obj)
     {
-        if (obj is not ProducerViewModel producer)
+        if (obj is not UserViewModel user)
         {
             return;
         }
         
-        if (ProductBLL.GetProducts().Any(p => p.Id == producer.Id))
-        {
-            var errDialog = new MessageBox
-            {
-                Title = "Error",
-                Content = "This producer is used in products.\nYou cannot delete it."
-            };
-            
-            errDialog.ShowDialogAsync();
-            return;
-        }
-
         var dialog = new MessageBox
         {
             Title = "Confirmation",
@@ -81,9 +68,9 @@ public class ProducerPageViewModel : BaseViewModel
 
         if (result != MessageBoxResult.Primary) return;
         
-        if (ProducerBLL.DeleteProducer(producer.ToDTO()))
+        if (UserBLL.DeleteUser(user.ToDTO()))
         {
-            Producers.Remove(producer);
+            Users.Remove(user);
         }
     }
 }

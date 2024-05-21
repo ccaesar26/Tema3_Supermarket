@@ -10,10 +10,11 @@
       xmlns:viewModels="clr-namespace:Supermarket.ViewModels.PageViewModels"
       xmlns:pageViews="clr-namespace:Supermarket.Views.PageViews"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:adminPageViewModels="clr-namespace:Supermarket.ViewModels.PageViewModels.AdminPageViewModels"
       mc:Ignorable="d"
       Title="AdminPage">
     <Page.DataContext>
-        <viewModels:AdminPageViewModel/>
+        <adminPageViewModels:AdminPageViewModel/>
     </Page.DataContext>
     <DockPanel>
         <ui:NavigationView 

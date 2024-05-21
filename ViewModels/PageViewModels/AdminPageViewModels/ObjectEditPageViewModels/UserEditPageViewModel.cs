@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Supermarket.Extensions;
 using Supermarket.Extensions.EnumExtensions;
 using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
@@ -9,7 +8,7 @@ using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectEditPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectEditPageViewModels;
 
 public class UserEditPageViewModel : BaseViewModel
 {

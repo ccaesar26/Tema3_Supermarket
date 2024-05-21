@@ -3,7 +3,7 @@ using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
 using Supermarket.ViewModels.ObjectViewModels;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectPageViewModels;
 
 public class ReceiptPageViewModel : BaseViewModel
 {

@@ -8,58 +8,59 @@ using Supermarket.Views.AdminItemEditPages;
 using Supermarket.Views.AdminItemPageViews;
 using Wpf.Ui.Controls;
 
-namespace Supermarket.ViewModels.PageViewModels.ObjectPageViewModels;
+namespace Supermarket.ViewModels.PageViewModels.AdminPageViewModels.ObjectPageViewModels;
 
-public class OfferPageViewModel : BaseViewModel
+public class ProductPageViewModel
 {
-    public ObservableCollection<OfferViewModel> Offers { get; set; } 
-        = new(OfferBLL.GetOffers().Select(o => o.ToViewModel()));
+    public ObservableCollection<ProductViewModel> Products { get; set; } 
+        = new(ProductBLL.GetProducts().Select(p => p.ToViewModel()));
+    
     public ICommand AddNewCommand { get; }
     public ICommand EditCommand { get; }
     public ICommand RemoveCommand { get; }
     
-    public OfferPageViewModel()
+    public ProductPageViewModel()
     {
         AddNewCommand = new RelayCommand<object>(obj =>
         {
-            if (obj is not OfferPage currentPage)
+            if (obj is not ProductPage currentPage)
             {
                 return;
             }
         
-            var offerEditPage = new OfferEditPage();
+            var productEditPage = new ProductEditPage();
         
-            currentPage.NavigationService?.Navigate(offerEditPage);
+            currentPage.NavigationService?.Navigate(productEditPage);
         });
         
         EditCommand = new RelayCommand<object>(obj =>
         {
             if (obj is not object[] values) return;
 
-            if (values[0] is not OfferViewModel offer || values[1] is not OfferPage currentPage)
+            if (values[0] is not ProductViewModel product || values[1] is not ProductPage currentPage)
             {
                 return;
             }
         
-            var offerEditPage = new OfferEditPage(offer);
+            var productEditPage = new ProductEditPage(product);
         
-            currentPage.NavigationService?.Navigate(offerEditPage);
+            currentPage.NavigationService?.Navigate(productEditPage);
+            
         });
-        
         RemoveCommand = new RelayCommand<object>(Remove);
     }
     
     private void Remove(object? obj)
     {
-        if (obj is not OfferViewModel offer)
+        if (obj is not ProductViewModel product)
         {
             return;
         }
         
         var dialog = new MessageBox
         {
-            Title = "Remove Offer",
-            Content = "Are you sure you want to remove this offer?",
+            Title = "Confirmation",
+            Content = "Are you sure you want to delete this producer?",
             PrimaryButtonText = "Yes",
             CloseButtonText = "No"
         };
@@ -68,9 +69,9 @@ public class OfferPageViewModel : BaseViewModel
 
         if (result != MessageBoxResult.Primary) return;
         
-        if (OfferBLL.DeleteOffer(offer.ToDTO()))
+        if (ProductBLL.DeleteProduct(product.ToDTO()))
         {
-            Offers.Remove(offer);
+            Products.Remove(product);
         }
     }
 }

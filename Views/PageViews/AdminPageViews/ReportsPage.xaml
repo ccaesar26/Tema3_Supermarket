@@ -6,10 +6,11 @@
       xmlns:local="clr-namespace:Supermarket.Views.PageViews"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:pageViewModels="clr-namespace:Supermarket.ViewModels.PageViewModels"
+      xmlns:adminPageViewModels="clr-namespace:Supermarket.ViewModels.PageViewModels.AdminPageViewModels"
       mc:Ignorable="d"
       Title="ReportsPage">
     <Page.DataContext>
-        <pageViewModels:ReportsPageViewModel/>
+        <adminPageViewModels:ReportsPageViewModel/>
     </Page.DataContext>
     <DockPanel>
         <ui:TextBlock

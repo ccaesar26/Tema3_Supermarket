@@ -36,9 +36,9 @@ public class ProductViewModel : BaseViewModel
     }
     
     private CategoryViewModel? _category;
-    public CategoryViewModel? Category
+    public CategoryViewModel Category
     {
-        get => _category;
+        get => _category ?? new CategoryViewModel();
         set
         {
             _category = value;
@@ -47,9 +47,9 @@ public class ProductViewModel : BaseViewModel
     }
     
     private ProducerViewModel? _producer;
-    public ProducerViewModel? Producer
+    public ProducerViewModel Producer
     {
-        get => _producer;
+        get => _producer ?? new ProducerViewModel();
         set
         {
             _producer = value;
@@ -64,6 +64,17 @@ public class ProductViewModel : BaseViewModel
         set
         {
             _image = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    private OfferViewModel? _offer;
+    public OfferViewModel Offer
+    {
+        get => _offer ?? new OfferViewModel();
+        set
+        {
+            _offer = value;
             OnPropertyChanged();
         }
     }

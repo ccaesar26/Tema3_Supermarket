@@ -1,6 +1,10 @@
 ﻿using System.Windows.Input;
+using Supermarket.Extensions.Mapping;
 using Supermarket.Models.BusinessLogicLayer;
+using Supermarket.Services;
+using Supermarket.ViewModels.ObjectViewModels;
 using Supermarket.Views.PageViews;
+using Supermarket.Views.PageViews.CashierPageViews;
 using Wpf.Ui.Input;
 
 namespace Supermarket.ViewModels.PageViewModels;
@@ -54,9 +58,17 @@ public class LoginPageViewModel: BaseViewModel
             return;
         }
 
-        if (obj is LoginPage page)
+        if (obj is not LoginPage page) return;
+        
+        if (UserBLL.IsValidAdmin(Username, Password))
         {
             page.NavigationService?.Navigate(new AdminPage());
+        }
+        else
+        {
+            var user = UserBLL.GetUsers().FirstOrDefault()?.ToViewModel() ?? new UserViewModel();
+            UserSession.Instance.SetUser(user);
+            page.NavigationService?.Navigate(new CashierPage());
         }
     }
 }
