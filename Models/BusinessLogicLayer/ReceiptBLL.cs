@@ -28,8 +28,12 @@ public static class ReceiptBLL
         
         var receiptId = ReceiptDAL.InsertReceipt(receiptDTO.ToEntity());
         
-        return ProductReceiptDAL.InsertProductReceipt(receiptDTO.Items?
-            .Select(s => s.ToEntity(receiptId)).FirstOrDefault() ?? new ProductReceipt());
+        foreach (var productReceipt in receiptDTO.Items?.Select(s => s.ToEntity(receiptId)) ?? new List<ProductReceipt>())
+        {
+            ProductReceiptDAL.InsertProductReceipt(productReceipt);
+        }
+
+        return true;
     }
     
     public static bool EditReceipt(ReceiptDTO receiptDTO)
